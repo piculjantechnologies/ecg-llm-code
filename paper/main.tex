@@ -1,0 +1,34 @@
+% Manuscript for npj Digital Medicine (Article), submitted as a compiled PDF; the Supplementary Information is the
+% separate supplement.tex. Build both with: make  (pdflatex + bibtex), or  conda run -n tex make  (Tectonic).
+%
+% Order follows the journal's Article format: title page, abstract (<= 150 words, unstructured), Introduction (no
+% subheadings), Results, Discussion (no subheadings), Methods (with an ethics subsection, see
+% 05_statements), Data availability, Code availability, Acknowledgements, Author contributions, Competing interests,
+% References. The title has at most 15 words.
+\documentclass[11pt]{article}
+\newcommand{\ExternalDocument}{supplement}
+\input{preamble}
+
+\title{\PaperTitle}
+\author{\PaperAuthor\\[0.5ex]
+  Pi\v{c}uljan Technologies, Zagreb, Croatia\\[0.5ex]
+  Correspondence: \texttt{contact@piculjantechnologies.ai}}
+\date{}
+
+\setcounter{secnumdepth}{0}  % Nature style: unnumbered headings in the main text
+\begin{document}
+\maketitle
+\linenumbers
+
+\input{sections/00_abstract}
+\input{sections/01_introduction}
+\input{sections/02_results}
+\input{sections/03_discussion}
+\input{sections/04_methods}
+\input{sections/05_statements}
+\input{sections/06_endmatter}
+
+\bibliographystyle{unsrtnat}
+\bibliography{refs}
+
+\end{document}

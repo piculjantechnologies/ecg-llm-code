@@ -1,0 +1,206 @@
+\FloatBarrier
+\section{Methods}\label{sec:methods}
+
+\subsection{Study design}
+This is a retrospective evaluation of a general-purpose LLM with a Python sandbox, used as a zero-shot classifier of
+12-lead ECGs on a public dataset; the model was blind to labels and PTB-XL identifiers. We use zero-shot to mean that
+the model's parameters were not updated (no training or fine-tuning), that the prompt contained no labelled examples
+and no class prevalences, and that no retrieval was used. The prompt did define the superclasses as PTB-XL does, and
+the configuration was developed on labelled validation records (``Development and freeze''). The input format,
+prompt, model settings and analysis plan were fixed in a written protocol that was frozen before the test fold was
+run. Analyses added after the test run are listed under ``Post hoc analyses'' below and labelled post hoc where they
+are reported. Ethics and the reporting guideline are described at the end of the Methods.
+
+\subsection{Data, labels and split}
+We used PTB-XL version 1.0.3~\citep{Wagner2020,Wagner2022physionet} (\NRecordsTotal{} records from \NPatients{}
+patients, 10\,s, 12 leads, recorded between October 1989 and June 1996 at 400\,Hz and resampled to 500\,Hz by the
+dataset's authors; the dates in the metadata are shifted per patient). PTB-XL annotates each record with statements
+of the SCP-ECG standard (Standard Communication Protocol for Computer-Assisted Electrocardiography) and gives each
+diagnostic statement a likelihood from 0 to 100, inferred from keywords in the ECG report that express the
+cardiologist's certainty (0 where the report gave no such information)~\citep{Wagner2020}. Labels and split follow the
+public benchmark~\citep{Strodthoff2021}: every diagnostic SCP-ECG statement of a record (as marked in PTB-XL's
+\texttt{scp\_statements} table) contributes its diagnostic superclass (NORM, MI, STTC, CD or HYP), irrespective of its
+likelihood; records without any superclass are removed, which leaves \NWithSuperclass{} records. All test-fold records
+are marked in PTB-XL as validated by a human annotator. A record can have several superclasses. Folds 1--8
+(\NTrain{} records) form the benchmark training set, fold 9 (\NVal{} records) the validation set and fold 10
+(\NTest{} records) the test set; no patient appears in more than one of these sets (Supplementary
+Table~\ref{tab:characteristics}). All development runs used fold 9. Folds 1--8 were used only to fit the age-and-sex
+control, to compute the class prevalences reserved for failed records, and for the labelled example files tried
+during development. In this study, the test fold was used only for the frozen test run, the pre-specified evaluation
+and, after the test run, the post hoc analyses; the same model had read the same test records in a separate study
+(``Endpoints and statistical analysis'').
+
+\subsection{Input}
+Each record was written to a CSV file with a time column in milliseconds and the 12 leads (I, II, III, aVR, aVL, aVF,
+V1--V6) in millivolts with three decimals, one row per sample: the full 10-second recording at 500\,Hz (5{,}000 rows),
+unfiltered, as stored in PTB-XL. We call this input raw: the digital signal as distributed in PTB-XL (after the
+recording devices' own processing and the dataset authors' resampling), with no filtering, baseline correction, beat
+detection or feature extraction by us; three decimals in millivolts keep PTB-XL's resolution of 1\,\textmu V. The file was uploaded through the API's Files interface and attached to the request,
+which made it available in the sandbox. The user message named the file and gave the patient's age and sex (ages of 90
+years or more, which PTB-XL codes as 300, as ``90 or older''); Supplementary Section~\ref{app:example} shows one
+message. No derived measurement, filter, report or label was provided.
+
+\subsection{Model, sandbox, prompt and inference}\label{sec:inference}
+We used \ModelID{} through the Anthropic Messages API with the server-side code-execution tool
+(\CodeTool): a sandboxed container in which the model can run shell commands and Python (with NumPy, SciPy and pandas)
+on the attached file, without internet access~\citep{anthropic2026codeexec}. Within one request, the model decides
+when to run code, reads the printed output and continues until it answers; the API pauses a request after a set
+number of tool rounds, and the protocol allowed up to two continuations in the same container. In the test run, each
+request ran in a container of its own. Reasoning effort was \Effort{}, the output limit was \MaxTokens{} tokens per
+API call (including reasoning, code and answer), and adaptive thinking was used with summarized display, so the API
+returned a summary of the model's reasoning; in the test run this summary was empty for many requests, although every
+request had used reasoning tokens (see (viii) under ``Post hoc analyses''). The model exposes no sampling parameters
+(no temperature or seed), so outputs are not deterministic. The provider controls the sandbox image; error tracebacks
+show Python 3.11, and package versions were not recorded. The model's published training-data cutoff is June
+2026~\citep{anthropic2026models}. Development runs were made from \DevFirstSubmitUTC{} UTC on
+\DevFirstSubmitDateLong{} to \DevLastCollectUTC{} UTC on \DevLastCollectDateLong, and the test run between
+\TestFirstSubmitUTC{} and \TestLastCollectUTC{} UTC on \TestRunDateLong.
+
+The system prompt (Supplementary Section~\ref{app:prompt}, SHA-256 prefix \PromptSHA) assigns the role of a
+cardiologist with a Python sandbox, describes the file, and asks the model to work in two steps. In the first, it
+filters the signal, detects beats, forms a median beat per lead with the baseline set from the PR segment, and
+computes and prints a complete measurement table (rhythm, rate and regularity; PR, QRS duration from the earliest
+onset to the latest offset over all leads, QT, and QTc by Bazett's formula; frontal axis; per lead, Q-wave duration
+and depth, R, S and R$'$ amplitudes, ST level at the J point and 60\,ms later and T amplitude; the
+Sokolow--Lyon~\citep{Sokolow1949} and Cornell~\citep{Casale1985,Casale1987} voltages and R in aVL; P-wave amplitude,
+duration and terminal negativity in V1), and re-measures implausible values. In the second, it applies standard
+criteria for each superclass to the table, weighing the overall pattern. The prompt defines the five superclasses as
+in PTB-XL, states that rhythm findings alone are not superclass labels, and says that discrimination is measured, so
+that probabilities should reflect graded evidence. It contains no class prevalences and no examples. The output was
+constrained by a JSON schema (Supplementary Section~\ref{app:schema}): the record identifier, the key findings (free
+text, which the prompt limits to at most two sentences naming the decisive findings and measurements) and five
+independent probabilities.
+
+Each record was sent as its own request through the Message Batches interface, which halves the price. The system
+prompt was identical across requests and marked for prompt caching; the reported token counts show that the API also
+cached the context that grew during each request's tool loop, so nearly all input tokens were cache writes or cache
+reads. Cost was computed from the token counts the API reported for every request, at the list prices in the frozen
+configuration (USD 4 and 20 per million input and output tokens, cache writes at 1.25 times the input price and cache
+reads at USD 0.20 per million tokens, all halved for batches), which match the provider's published
+prices~\citep{anthropic2026pricing}. The provider bills container time of the sandbox only beyond a monthly free
+allowance~\citep{anthropic2026pricing}; none was charged, so the cost consists of tokens only.
+
+\paragraph{Blinding.} Records were shuffled (seed 7) and given anonymous identifiers, which were also the file names;
+the mapping to PTB-XL identifiers was stored locally and was never part of any request in the development or test
+runs. The model saw no labels, reports or PTB-XL identifiers of the records it classified.
+
+\subsection{Development and freeze}
+The configuration was developed on the validation fold. The prompt described above was run on 500 fold-9 records
+drawn at random (\texttt{protocol/dev500\_ids.txt}), where it reached \DevVTwo{} (\DevVTwoLow--\DevVTwoHigh). Each of
+three variants was compared with this prompt on the same records by a paired bootstrap (Table~\ref{tab:development}):
+two labelled training-fold example recordings per class attached as files with their labels (10 files; on 100 of the
+500 records, drawn at random); probabilities for PTB-XL's 44 diagnostic statements, aggregated to superclasses by
+their maximum (the same 100 records); and, after an error analysis on the 500 records, added rules for PTB-XL's
+labelling conventions, compared on 200 fold-9 records not used before. The prompt was kept because introducing its
+two steps, in place of an earlier, basic prompt's instruction to measure whatever the model judged necessary, was the
+only change that gave a measurable gain in macro AUROC (on the 500 records; the earlier prompts are in
+\texttt{prompts/}), because none of the three variants improved on it, and because it needs no
+labelled examples. On the 200 new records it reached \DevFreshVTwo{} (\DevFreshVTwoLow--\DevFreshVTwoHigh).
+Development used \NDevRecordsUsed{} distinct fold-9 records (the 500-record sample, the 200 new records and
+\NPilotExtra{} further records from a \NPilot-record pilot whose other \NPilotInMain{} were in the 500-record sample)
+in \NDevRuns{} runs, including those of earlier prompt versions, and cost USD \DevCostTotal.
+
+\begin{table}[tbp]
+  \centering
+  \caption{\textbf{Development on the validation fold (fold 9).} Each variant of the frozen prompt was run on the same
+  records as the frozen prompt; macro AUROC and paired differences (variant minus frozen prompt) with 95\% percentile
+  bootstrap CIs (\NBoot{} resamples). The 100 records are a random subset of the 500-record sample; on all 500, the
+  frozen prompt reached \DevVTwo{} (\DevVTwoLow--\DevVTwoHigh). The 200 records had not been used in development
+  before. All runs were made before the freeze. The difference in the first row (the frozen prompt with the example files)
+  was computed after the test run (post hoc).}
+  \label{tab:development}
+  \small
+  \begin{tabular}{lrccc}
+    \toprule
+     & & \multicolumn{2}{c}{Macro AUROC} & \\
+    \cmidrule(lr){3-4}
+    Change & Records & Frozen prompt & Variant & Difference [95\% CI] \\
+    \midrule
+    + 10 labelled example files & 100 & \DevVTwoHundred & \DevBoth &
+      $\DevBothDiff$ [$\DevBothDiffLow$, $\DevBothDiffHigh$] \\
+    Statement-level output & 100 & \DevVTwoHundred & \DevStatements &
+      $\DevStatementsDiff$ [$\DevStatementsDiffLow$, $\DevStatementsDiffHigh$] \\
+    + rules for labelling conventions & 200 new & \DevFreshVTwo & \DevFreshVFive &
+      $\DevFreshVFiveDiff$ [$\DevFreshVFiveDiffLow$, $\DevFreshVFiveDiffHigh$] \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The code, configuration and prompts were then frozen together with a written protocol that records
+the prompt's SHA-256 hash, the endpoints and the analysis plan. The software refuses to build a test-fold run unless
+the code, configuration and prompts are unchanged since the freeze and no experimental setting other than the
+record-shuffle seed differs from the frozen configuration; the test-run manifest records no difference from the frozen
+configuration, including the seed (7). The protocol was not registered externally.
+
+\subsection{Test run and failure handling}
+The \NTest{} test requests were sent in \NBatches{} batches of at most 250, one after another, with pre-specified stop
+rules (a batch costing more than USD 20 or with more than 10\% failed answers). An answer had to contain five finite
+probabilities; failed requests were to be retried once, requests paused by the API resumed up to twice, and records
+still without an answer were to be given the training-fold class prevalences, with their number reported. None of
+these was needed. Every paid request was logged with its token counts and cost.
+
+\subsection{Endpoints and statistical analysis}
+The pre-specified primary endpoint was macro AUROC over the five superclasses (scikit-learn \texttt{roc\_auc\_score},
+macro average), the benchmark's metric~\citep{Strodthoff2021}, on all \NTest{} test records from the single test
+run, with a 95\% percentile bootstrap confidence interval~\citep{Efron1993} (\NBoot{} resamples of records, seed 0,
+keeping only resamples with positives and negatives of every class). Pre-specified secondary endpoints were per-class
+AUROC, macro average precision (AUPRC), code runs, tokens and cost per record, and paired differences in macro AUROC,
+computed on the same bootstrap resamples, against a logistic regression per class on age, age squared and sex (ages
+coded 300 entered as 90), fitted on folds 1--8. The protocol also pre-specified a paired comparison with a
+configuration from a separate study by the author, in which the same model read the same test records as numeric
+median beats without a sandbox. That study's test run was completed, and its results were known, before development
+of this configuration began; the 500-record development sample is that study's validation sample. The comparison was
+computed after the test run, as specified; after its result was known, it was left out of this paper, which is
+limited to this study's own runs. Published results were compared as
+reported, without significance tests. Per-class confidence intervals and per-class differences from the control use the same resamples and were not
+pre-specified.
+
+\subsection{Post hoc analyses}
+After the test run we added the following analyses.
+\begin{enumerate}
+  \renewcommand{\labelenumi}{(\roman{enumi})}
+  \setlength{\itemsep}{0pt}\setlength{\parsep}{0pt}
+  \item What the model did in the sandbox, from the transcripts: the non-empty lines of code per record; the code runs
+  that ended with an error (a non-zero exit status, or an uncaught Python exception other than a broken pipe in the
+  error output, since piped commands return the exit status of the last command) and, in records with an error,
+  whether the last code run succeeded; whether the code called a filter (and its cutoffs), a peak detector and a
+  median function; and whether the printed output contained the labels of heart rate, QRS, PR, QT or QTc, axis and
+  Sokolow--Lyon voltage, a per-lead table of R and S amplitudes, or lines of 20 or more numbers. A printed label shows
+  that a labelled value was printed, not where a stated value came from.
+  \item Discrimination by diagnostic statement, for statements with at least \PHMinStatement{} test records, as the
+  AUROC of the superclass probability for records with the statement against records without the superclass, with
+  95\% CIs from \PHNStmtBoot{} stratified bootstrap resamples; this measures how well the superclass probability
+  separated these records, not whether the statement itself was identified.
+  \item Subgroups by sex, age (under 50 years, 50--69 years, 70 years or older), rhythm (atrial fibrillation or
+  flutter), signal-quality flags and extra beats noted in the PTB-XL metadata, and recording device (the device values
+  as recorded in PTB-XL, with at least \PHMinSubgroup{} test records); for the rhythm subgroups also as the mean AUROC
+  of the four classes other than NORM, which had few positive records in atrial fibrillation or flutter.
+  \item Calibration (expected calibration error with ten equal-width bins, Brier score, and the slope of a logistic
+  recalibration).
+  \item MI discrimination by the likelihood of the MI statements: each MI-positive record was grouped by the highest
+  likelihood among its MI statements (100; 50--80; 15--35) and compared with all test records without MI, with 95\% CIs
+  from \PHNStmtBoot{} stratified bootstrap resamples as in (ii); the age-and-sex control was evaluated on the same
+  groups.
+  \item A bootstrap that resampled patients instead of records.
+  \item The measurements stated in the key findings: heart rate, PR, QRS duration, QTc, axis and Sokolow--Lyon voltage
+  were extracted from the key-findings text with regular expressions (the first value with its unit after the
+  measurement's label within its clause; the midpoint of a stated range; for Sokolow--Lyon the stated sum, not a
+  component; details in Supplementary Table~\ref{tab:measurements}), and mentions of atrial fibrillation or flutter
+  were detected with a pattern that excluded negations. These were tabulated against the PTB-XL statements and the
+  heart-axis field of the PTB-XL metadata, with the criteria of the frozen prompt where it gives one (QRS 120\,ms or
+  more for complete bundle branch block and non-specific intraventricular conduction disturbance, 110--119\,ms for
+  incomplete right bundle branch block, PR over 200\,ms for first-degree atrioventricular block, Sokolow--Lyon voltage
+  3.5\,mV or more for left ventricular hypertrophy) and conventional limits otherwise. The prompt gives no angle for
+  fascicular block, so the stated axis in left anterior fascicular block was compared with two thresholds, $-30^\circ$
+  (left axis deviation) and $-45^\circ$ (the AHA/ACCF/HRS criterion~\citep{surawicz2009recommendations}).
+  \item Mentions of PTB-XL by name in the reasoning summaries, among the \PHSummariesNonEmptyN{} of \NTest{} test
+  records whose summary was not empty.
+  \item Two analyses on the validation fold: the age-and-sex control on the \NDevVTwoAll{} records read with the frozen
+  prompt and on the whole fold, and the paired difference of the example-file variant from the frozen prompt (first
+  row of Table~\ref{tab:development}), computed from development runs made before the freeze.
+\end{enumerate}
+
+\subsection{Software}
+Local analyses used Python 3.13.9 with NumPy 2.3.5, SciPy 1.16.3, pandas 2.2.3, scikit-learn 1.7.2, wfdb 4.3.1,
+matplotlib 3.10.6 and the Anthropic Python SDK 0.117.0; the exact versions of the packages that the code uses directly
+are pinned in \texttt{requirements-lock.txt}.

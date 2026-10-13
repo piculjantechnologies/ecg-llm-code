@@ -1,0 +1,63 @@
+# Paper 2: a general-purpose LLM with a code-execution sandbox reads raw 12-lead ECG files.
+# Every run copies the resolved config into its manifest.json; later commands on that run use
+# the copy for the experiment settings. Prices are read at submit time and stored per submission.
+# Change settings for one run with --set section.key=value (typos and wrong types are rejected).
+
+[data]
+ptbxl_dir = "data/ptb-xl"        # PTB-XL 1.0.3 (development only: folds 1-9)
+
+[input]
+sampling_rate = 500              # Hz of the raw signal written to each record file
+decimals = 3                     # mV values rounded to this many decimals
+include_demographics = true      # age and sex in the message text
+
+[model]
+id = "claude-opus-5-5"
+effort = "high"
+max_tokens = 16000               # per API call, includes thinking, code and the answer
+thinking_display = "summarized"
+code_tool = "code_execution_20260521"
+max_continuations = 2            # resumptions after stop_reason pause_turn (server tool-loop limit)
+
+[output]
+# Statement level: the model also gives a probability for each of PTB-XL's 44 diagnostic
+# statements, and each superclass probability is derived from its statements (aggregate), as the
+# benchmark labels are. false = the model's own five superclass probabilities are used.
+statement_level = false
+aggregate = "max"                # max | noisy_or
+
+[examples]
+# Labelled example ECGs from the training folds (1-8), attached to every request as files with a
+# labels table. 0 = none (zero-shot).
+n_per_class = 0
+seed = 11
+
+[prompt]
+system = "prompts/reader_code_v2_measure.md"
+
+[run]
+seed = 7                         # shuffle before assigning anonymous record ids
+
+[eval]
+n_bootstrap = 2000
+bootstrap_seed = 0
+
+[budget]
+# Starting value of the total cap for this project's ledger (runs/spend_ledger.jsonl); raise
+# it with `python -m ecgcode spend --set-cap USD`.
+total_usd_cap = 20.0
+
+[cost]
+# USD per million tokens for claude-opus-5-5. Pass --set cost.* for another model.
+input = 4.00
+output = 20.00
+cache_read = 0.20
+cache_write_multiplier = 1.25
+batch_discount = 0.5
+chars_per_token = 1.38
+assumed_output_tokens_per_record = 3000
+# A code-tool request re-reads its growing context on every sandbox round (at most 10 rounds per
+# API call, then pause_turn), so its cost is not bounded by max_tokens alone. The budget gate
+# assumes this per request at full price (halved for batches). After 710 requests the most
+# expensive cost $0.12 (sync) / $0.12 (batch).
+assumed_worst_usd_per_request = 0.5

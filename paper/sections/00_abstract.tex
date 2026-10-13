@@ -1,0 +1,14 @@
+% npj Digital Medicine Article: unstructured abstract, one paragraph, no subheadings, at most 150 words
+% (counted on the rendered text). Signed macros in math mode.
+\begin{abstract}
+\noindent General-purpose large language models (LLMs) have read electrocardiogram (ECG) images near chance. We gave a
+general-purpose LLM (\ModelID) a Python sandbox and each raw 12-lead PTB-XL recording as a file, with age and sex.
+It wrote code to filter the signal and form median beats, then gave probabilities for the five diagnostic
+superclasses, without training, retrieval or labelled examples. The prompt was developed on the validation fold and
+frozen beforehand; on the benchmark test fold ($n{=}\NTest$), the macro area under the receiver operating
+characteristic curve was \MainAUROC{} (95\% CI \MainAUROCLow--\MainAUROCHigh), exceeding an age-and-sex control by
+$\CodeVsAgeSex$. With the same split, labels and metric, the best published supervised and zero-shot ECG--language models reach
+\BestPublishedAUROC{} and \BestZeroShotAUROC. Post hoc, transcripts suggested that most intervals and axes were
+read from printed median-beat samples, not computed. Each answer came with its code, printed output and stated
+measurements, at USD \CostPerRecord{} per ECG.
+\end{abstract}

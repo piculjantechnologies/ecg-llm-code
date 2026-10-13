@@ -1,0 +1,39 @@
+# Published results on PTB-XL "superdiagnostic" (5 superclasses), macro AUROC (percent values converted to 0-1).
+# group: benchmark | supervised | pretrained | zero_shot | ecg_llm | general_llm   (table sections)
+# same_protocol:
+#   yes     = benchmark split with test = fold 10 (2,158 records in v1.0.3), benchmark labels, macro AUROC
+#   unclear = paper does not state the split/label mode explicitly (row gets a dagger)
+#   no      = different test set or protocol (row gets a dagger)
+# citekey must exist in paper/refs.bib. Every number was read in the cited paper's table or text on
+# 2026-09-26 (RecursiveECG on 2026-09-28; its description, and the location of the xECG value in the journal version,
+# on 2026-10-01; PULSE and the general-purpose LLMs in the journal version on 2026-10-13) and checked against the primary
+# sources; "source" gives the location.
+group,model,training,input,macro_auroc,reported_uncertainty,citekey,same_protocol,source
+benchmark,ensemble of the benchmark models,supervised,signal (100 Hz),0.934,05,Strodthoff2021,yes,IEEE JBHI Table I
+benchmark,resnet1d_wang,supervised,signal (100 Hz),0.930,05,Strodthoff2021,yes,IEEE JBHI Table I
+benchmark,xresnet1d101,supervised,signal (100 Hz),0.928,05,Strodthoff2021,yes,IEEE JBHI Table I
+benchmark,lstm,supervised,signal (100 Hz),0.927,05,Strodthoff2021,yes,IEEE JBHI Table I
+benchmark,fcn_wang,supervised,signal (100 Hz),0.925,06,Strodthoff2021,yes,IEEE JBHI Table I
+benchmark,inception1d,supervised,signal (100 Hz),0.921,06,Strodthoff2021,yes,IEEE JBHI Table I
+benchmark,Wavelet+NN,supervised,wavelet features,0.874,07,Strodthoff2021,yes,IEEE JBHI Table I
+supervised,RecursiveECG (LLM-refined classifier),supervised,signal (100 Hz),0.937,,deng2026recursiveecg,no,Table 1 (0.9373 +-0.0066 SD over 5 runs); supervised classifier that an LLM agent (DeepSeek-V4-Pro) revised in code starting from a 12-lead ResNet; xLSTM-ECG is a baseline in that paper; folds 1-8/9/10 with 17441/2193/2203 records: all records incl. those without superclass (release before 1.0.2); test fold differs
+supervised,MS-SSM (S6),supervised,signal (100 Hz),0.935,,karami2025msssm,unclear,Table 3; split not stated
+supervised,MultiresNet,supervised,signal (100 Hz),0.934,,shi2023multires,yes,Table 3; code uses folds 1-8/9/10 multi-label
+supervised,S4,supervised,signal (100 Hz),0.932,,almasud2026benchmarking,unclear,Table 3; v1.0.3; split not restated
+supervised,Chimera,supervised,signal (100 Hz),0.930,,behrouz2024chimera,unclear,Table 2; split not stated
+supervised,SpaceTime,supervised,signal (100 Hz),0.929,,zhang2023spacetime,unclear,Table 2 / App. Table 9; split not stated
+pretrained,HuBERT++ (S4 backbone),fine-tuned,signal (240 Hz),0.936,,almasud2026pretraining,unclear,Table 35 (preprint); protocol as benchmarking paper
+pretrained,ECGFounder,fine-tuned,signal,0.935,,almasud2026benchmarking,unclear,Table 3; split not restated
+pretrained,ECG-CPC,fine-tuned,signal (240 Hz),0.934,,almasud2026benchmarking,unclear,Table 3; split not restated
+pretrained,ECG-JEPA,fine-tuned,signal (250 Hz),0.931,,kim2024ecgjepa,yes,Table 4; folds 1-8/9/10
+pretrained,xECG,fine-tuned,signal (100 Hz),0.928,,lunelli2025benchecg,yes,Suppl. Table 1 of the npj Digit. Med. version (Suppl. Table 2 in arXiv v1); mean over 5 seeds; +-0.001 SD
+pretrained,HuBERT-ECG (base),fine-tuned,signal (100 Hz),0.911,,coppola2024hubertecg,yes,Suppl. Table 8 of medRxiv v3 (+-0.008); pretraining data include PTB-XL
+zero_shot,SuPreME,none (zero-shot),signal,0.782,,cai2025supreme,yes,Tables 2 and 22 (78.20); test n = 2158
+zero_shot,MELP,none (zero-shot),signal,0.762,,wang2025melp,yes,Table 3 (76.2); test n = 2158
+zero_shot,D-BETA,none (zero-shot),signal,0.762,,pham2025dbeta,yes,Table 3 (76.2); test n = 2158
+zero_shot,MERL,none (zero-shot),signal,0.742,,liu2024merl,yes,74.2 in MERL Fig. 4 and MELP Table 3; test n = 2158
+ecg_llm,GEM,ECG instruction tuning,signal + image,0.834,,lan2025gem,no,Table 2; 2082-record held-out set
+ecg_llm,PULSE,ECG instruction tuning,image,0.829,,liu2024teach,no,Table 1; 2082-record held-out set
+general_llm,GPT-4o,none,image,0.556,,liu2024teach,no,Table 1; 2082 records; AUC derivation from answers not described
+general_llm,Claude 3.5 Sonnet,none,image,0.540,,liu2024teach,no,Table 1; 2082 records
+general_llm,Gemini 1.5 Pro,none,image,0.507,,liu2024teach,no,Table 1; 2082 records

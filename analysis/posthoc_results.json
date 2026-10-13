@@ -1,0 +1,1055 @@
+{
+  "characteristics": [
+    {
+      "split": "Training (folds 1--8)",
+      "records": 17084,
+      "patients": 14823,
+      "age_median": 61.0,
+      "age_q1": 50.0,
+      "age_q3": 71.0,
+      "female": 0.47980566612034653,
+      "afib": 0.0688948723952236,
+      "noise": 0.22658627955982205,
+      "NORM": 0.44462655115897914,
+      "MI": 0.25632170451884806,
+      "STTC": 0.2450245844064622,
+      "CD": 0.22869351439943808,
+      "HYP": 0.12403418403184266
+    },
+    {
+      "split": "Validation (fold 9)",
+      "records": 2146,
+      "patients": 1917,
+      "age_median": 62.0,
+      "age_q1": 49.0,
+      "age_q3": 72.0,
+      "female": 0.4808946877912395,
+      "afib": 0.06896551724137931,
+      "noise": 0.24603914259086673,
+      "NORM": 0.4450139794967381,
+      "MI": 0.2516309412861137,
+      "STTC": 0.24603914259086673,
+      "CD": 0.23066169617893756,
+      "HYP": 0.12488350419384903
+    },
+    {
+      "split": "Test (fold 10)",
+      "records": 2158,
+      "patients": 1877,
+      "age_median": 63.0,
+      "age_q1": 50.0,
+      "age_q3": 73.75,
+      "female": 0.4856348470806302,
+      "afib": 0.06811862835959222,
+      "noise": 0.23772011121408712,
+      "NORM": 0.4462465245597776,
+      "MI": 0.2548656163113994,
+      "STTC": 0.24142724745134383,
+      "CD": 0.22984244670991658,
+      "HYP": 0.12140871177015755
+    }
+  ],
+  "subgroups": [
+    {
+      "kind": "Sex",
+      "group": "Female",
+      "n": 1048,
+      "positives": {
+        "NORM": 447,
+        "MI": 253,
+        "STTC": 292,
+        "CD": 230,
+        "HYP": 127
+      },
+      "code": 0.8810261657156069,
+      "code_ci": [
+        0.8681254155268439,
+        0.8935361878522424
+      ],
+      "per_class": {
+        "NORM": 0.9314323256913347,
+        "MI": 0.8529345961667538,
+        "STTC": 0.8774461839530334,
+        "CD": 0.8601626448389497,
+        "HYP": 0.8831550779279626
+      }
+    },
+    {
+      "kind": "Sex",
+      "group": "Male",
+      "n": 1110,
+      "positives": {
+        "NORM": 516,
+        "MI": 297,
+        "STTC": 229,
+        "CD": 266,
+        "HYP": 135
+      },
+      "code": 0.8920243334774837,
+      "code_ci": [
+        0.8799984540179899,
+        0.9041302086483656
+      ],
+      "per_class": {
+        "NORM": 0.9260857933338553,
+        "MI": 0.8696683936536335,
+        "STTC": 0.9179995935543671,
+        "CD": 0.8608978013754767,
+        "HYP": 0.8854700854700855
+      }
+    },
+    {
+      "kind": "Age",
+      "group": "Under 50 years",
+      "n": 521,
+      "positives": {
+        "NORM": 399,
+        "MI": 38,
+        "STTC": 43,
+        "CD": 70,
+        "HYP": 25
+      },
+      "code": 0.8683769403345171,
+      "code_ci": [
+        0.8396007329980378,
+        0.8930832967963455
+      ],
+      "per_class": {
+        "NORM": 0.8711841078105099,
+        "MI": 0.8793995859213252,
+        "STTC": 0.8989734358275762,
+        "CD": 0.7909566043712385,
+        "HYP": 0.9013709677419355
+      }
+    },
+    {
+      "kind": "Age",
+      "group": "50--69 years",
+      "n": 875,
+      "positives": {
+        "NORM": 421,
+        "MI": 195,
+        "STTC": 198,
+        "CD": 166,
+        "HYP": 105
+      },
+      "code": 0.870963071683809,
+      "code_ci": [
+        0.8545427601063414,
+        0.8866262770723338
+      ],
+      "per_class": {
+        "NORM": 0.8902733161028388,
+        "MI": 0.8177639517345401,
+        "STTC": 0.9146785431866672,
+        "CD": 0.8346474756572128,
+        "HYP": 0.897452071737786
+      }
+    },
+    {
+      "kind": "Age",
+      "group": "70 years or older",
+      "n": 762,
+      "positives": {
+        "NORM": 143,
+        "MI": 317,
+        "STTC": 280,
+        "CD": 260,
+        "HYP": 132
+      },
+      "code": 0.8660519607034048,
+      "code_ci": [
+        0.8502375760200972,
+        0.8790518892520656
+      ],
+      "per_class": {
+        "NORM": 0.943423297219743,
+        "MI": 0.8166696203877646,
+        "STTC": 0.8271265560165976,
+        "CD": 0.8960465828991725,
+        "HYP": 0.8469937469937471
+      }
+    },
+    {
+      "kind": "Rhythm",
+      "group": "Atrial fibrillation or flutter",
+      "n": 147,
+      "positives": {
+        "NORM": 3,
+        "MI": 82,
+        "STTC": 80,
+        "CD": 48,
+        "HYP": 25
+      },
+      "code": 0.8804133557812847,
+      "code_ci": [
+        0.8550235913070452,
+        0.9046228689053194
+      ],
+      "per_class": {
+        "NORM": 0.994212962962963,
+        "MI": 0.7956848030018762,
+        "STTC": 0.8050373134328358,
+        "CD": 0.9187710437710437,
+        "HYP": 0.888360655737705
+      }
+    },
+    {
+      "kind": "Rhythm",
+      "group": "Other rhythms",
+      "n": 2011,
+      "positives": {
+        "NORM": 960,
+        "MI": 468,
+        "STTC": 441,
+        "CD": 448,
+        "HYP": 237
+      },
+      "code": 0.8833292441704257,
+      "code_ci": [
+        0.8741593817441288,
+        0.8926924332773676
+      ],
+      "per_class": {
+        "NORM": 0.9203818783698066,
+        "MI": 0.859308096670378,
+        "STTC": 0.8982292704767683,
+        "CD": 0.8563638207202265,
+        "HYP": 0.8823631546149492
+      }
+    },
+    {
+      "kind": "Signal quality",
+      "group": "Flag noted",
+      "n": 513,
+      "positives": {
+        "NORM": 225,
+        "MI": 142,
+        "STTC": 111,
+        "CD": 121,
+        "HYP": 55
+      },
+      "code": 0.8657193435847649,
+      "code_ci": [
+        0.844649922800517,
+        0.8849359912852109
+      ],
+      "per_class": {
+        "NORM": 0.9181558641975309,
+        "MI": 0.8338142059906609,
+        "STTC": 0.8815158442024115,
+        "CD": 0.8582707876539046,
+        "HYP": 0.8368400158793172
+      }
+    },
+    {
+      "kind": "Signal quality",
+      "group": "No flag",
+      "n": 1645,
+      "positives": {
+        "NORM": 738,
+        "MI": 408,
+        "STTC": 410,
+        "CD": 375,
+        "HYP": 207
+      },
+      "code": 0.8928256416018477,
+      "code_ci": [
+        0.8831445539774897,
+        0.9027594954858412
+      ],
+      "per_class": {
+        "NORM": 0.9328147829438602,
+        "MI": 0.8725450568262875,
+        "STTC": 0.9027046509331489,
+        "CD": 0.8615359580052494,
+        "HYP": 0.8945277593006927
+      }
+    },
+    {
+      "kind": "Extra beats",
+      "group": "Noted",
+      "n": 192,
+      "positives": {
+        "NORM": 45,
+        "MI": 72,
+        "STTC": 64,
+        "CD": 69,
+        "HYP": 31
+      },
+      "code": 0.8735953643120847,
+      "code_ci": [
+        0.8449885737841026,
+        0.9022944643225789
+      ],
+      "per_class": {
+        "NORM": 0.9455782312925171,
+        "MI": 0.8380787037037037,
+        "STTC": 0.84637451171875,
+        "CD": 0.8716861081654295,
+        "HYP": 0.8662592666800241
+      }
+    },
+    {
+      "kind": "Extra beats",
+      "group": "Not noted",
+      "n": 1966,
+      "positives": {
+        "NORM": 918,
+        "MI": 478,
+        "STTC": 457,
+        "CD": 427,
+        "HYP": 231
+      },
+      "code": 0.8860209690039037,
+      "code_ci": [
+        0.876914818498023,
+        0.8954555170052535
+      ],
+      "per_class": {
+        "NORM": 0.9258713557518002,
+        "MI": 0.8620195876636523,
+        "STTC": 0.9024742863026074,
+        "CD": 0.8566102566677775,
+        "HYP": 0.8831293586336814
+      }
+    },
+    {
+      "kind": "Device",
+      "group": "CS-12",
+      "n": 686,
+      "positives": {
+        "NORM": 241,
+        "MI": 221,
+        "STTC": 162,
+        "CD": 200,
+        "HYP": 63
+      },
+      "code": 0.8481176104781645,
+      "code_ci": [
+        0.8282708617847565,
+        0.8671211117827501
+      ],
+      "per_class": {
+        "NORM": 0.911720826145741,
+        "MI": 0.8330268087383838,
+        "STTC": 0.8435232306097445,
+        "CD": 0.8295318930041152,
+        "HYP": 0.8227852938928379
+      }
+    },
+    {
+      "kind": "Device",
+      "group": "CS-12 E",
+      "n": 437,
+      "positives": {
+        "NORM": 313,
+        "MI": 55,
+        "STTC": 37,
+        "CD": 51,
+        "HYP": 17
+      },
+      "code": 0.8523444428518545,
+      "code_ci": [
+        0.8229078404951344,
+        0.8808617047371269
+      ],
+      "per_class": {
+        "NORM": 0.8428578790064928,
+        "MI": 0.8130890052356021,
+        "STTC": 0.9287162162162161,
+        "CD": 0.7783196180026415,
+        "HYP": 0.8987394957983194
+      }
+    },
+    {
+      "kind": "Device",
+      "group": "AT-6 C 5.5",
+      "n": 382,
+      "positives": {
+        "NORM": 182,
+        "MI": 80,
+        "STTC": 100,
+        "CD": 75,
+        "HYP": 58
+      },
+      "code": 0.9107508011830754,
+      "code_ci": [
+        0.8911036001519205,
+        0.9276546436476307
+      ],
+      "per_class": {
+        "NORM": 0.947760989010989,
+        "MI": 0.8903559602649007,
+        "STTC": 0.910709219858156,
+        "CD": 0.9010857763300761,
+        "HYP": 0.9038420604512558
+      }
+    },
+    {
+      "kind": "Device",
+      "group": "AT-6 6",
+      "n": 236,
+      "positives": {
+        "NORM": 107,
+        "MI": 50,
+        "STTC": 72,
+        "CD": 52,
+        "HYP": 39
+      },
+      "code": 0.9119048021514766,
+      "code_ci": [
+        0.8891557587778028,
+        0.9324944172989919
+      ],
+      "per_class": {
+        "NORM": 0.9680504238209086,
+        "MI": 0.9036559139784947,
+        "STTC": 0.895579268292683,
+        "CD": 0.8974707357859532,
+        "HYP": 0.894767668879344
+      }
+    },
+    {
+      "kind": "Device",
+      "group": "AT-60 3",
+      "n": 171,
+      "positives": {
+        "NORM": 55,
+        "MI": 59,
+        "STTC": 44,
+        "CD": 49,
+        "HYP": 19
+      },
+      "code": 0.8901156269232017,
+      "code_ci": [
+        0.8581402518101948,
+        0.9186165392625086
+      ],
+      "per_class": {
+        "NORM": 0.9485893416927899,
+        "MI": 0.8896035108958839,
+        "STTC": 0.9028274874731568,
+        "CD": 0.906406825025092,
+        "HYP": 0.8031509695290858
+      }
+    }
+  ],
+  "statements": [
+    {
+      "statement": "NORM",
+      "description": "normal ECG",
+      "class": "NORM",
+      "n": 963,
+      "code": 0.9288229339103308,
+      "ci": [
+        0.9181495348827106,
+        0.938809019495388
+      ]
+    },
+    {
+      "statement": "IMI",
+      "description": "inferior myocardial infarction",
+      "class": "MI",
+      "n": 267,
+      "code": 0.8070811671977193,
+      "ci": [
+        0.7772871946447537,
+        0.8340570089626773
+      ]
+    },
+    {
+      "statement": "ASMI",
+      "description": "anteroseptal myocardial infarction",
+      "class": "MI",
+      "n": 234,
+      "code": 0.9547122826040737,
+      "ci": [
+        0.9412524716162776,
+        0.9673838672556023
+      ]
+    },
+    {
+      "statement": "ILMI",
+      "description": "inferolateral myocardial infarction",
+      "class": "MI",
+      "n": 48,
+      "code": 0.9381089344941956,
+      "ci": [
+        0.9043658659825871,
+        0.9670270068926202
+      ]
+    },
+    {
+      "statement": "AMI",
+      "description": "anterior myocardial infarction",
+      "class": "MI",
+      "n": 35,
+      "code": 0.8274342572850035,
+      "ci": [
+        0.753759328358209,
+        0.8952161069651742
+      ]
+    },
+    {
+      "statement": "ALMI",
+      "description": "anterolateral myocardial infarction",
+      "class": "MI",
+      "n": 27,
+      "code": 0.8962594435231251,
+      "ci": [
+        0.8398341049382716,
+        0.944214402524415
+      ]
+    },
+    {
+      "statement": "INJAS",
+      "description": "subendocardial injury in anteroseptal leads",
+      "class": "MI",
+      "n": 22,
+      "code": 0.9169069425599277,
+      "ci": [
+        0.8729053595658074,
+        0.9541507660560832
+      ]
+    },
+    {
+      "statement": "LMI",
+      "description": "lateral myocardial infarction",
+      "class": "MI",
+      "n": 20,
+      "code": 0.8159514925373135,
+      "ci": [
+        0.7248752332089552,
+        0.8946703980099501
+      ]
+    },
+    {
+      "statement": "NDT",
+      "description": "non-diagnostic T abnormalities",
+      "class": "STTC",
+      "n": 182,
+      "code": 0.8502034007531869,
+      "ci": [
+        0.8267361647210456,
+        0.8742591479992212
+      ]
+    },
+    {
+      "statement": "ISC_",
+      "description": "non-specific ischemic",
+      "class": "STTC",
+      "n": 128,
+      "code": 0.9546903634697618,
+      "ci": [
+        0.9397237825481063,
+        0.9676072369425779
+      ]
+    },
+    {
+      "statement": "NST_",
+      "description": "non-specific ST changes",
+      "class": "STTC",
+      "n": 77,
+      "code": 0.8672143372815334,
+      "ci": [
+        0.8270220311148839,
+        0.9005997667573721
+      ]
+    },
+    {
+      "statement": "ISCAL",
+      "description": "ischemic in anterolateral leads",
+      "class": "STTC",
+      "n": 66,
+      "code": 0.9643749652912756,
+      "ci": [
+        0.9522715703152478,
+        0.9749745469354509
+      ]
+    },
+    {
+      "statement": "ISCIN",
+      "description": "ischemic in inferior leads",
+      "class": "STTC",
+      "n": 22,
+      "code": 0.8726050980174377,
+      "ci": [
+        0.8187114733159326,
+        0.9217516104848114
+      ]
+    },
+    {
+      "statement": "LAFB",
+      "description": "left anterior fascicular block",
+      "class": "CD",
+      "n": 162,
+      "code": 0.976194455586754,
+      "ci": [
+        0.9682584848687436,
+        0.9831924295434624
+      ]
+    },
+    {
+      "statement": "IRBBB",
+      "description": "incomplete right bundle branch block",
+      "class": "CD",
+      "n": 112,
+      "code": 0.7310173843905793,
+      "ci": [
+        0.6733831737794396,
+        0.7878914308277463
+      ]
+    },
+    {
+      "statement": "1AVB",
+      "description": "first degree AV block",
+      "class": "CD",
+      "n": 79,
+      "code": 0.9179081174122987,
+      "ci": [
+        0.8886213994120246,
+        0.9419798854514159
+      ]
+    },
+    {
+      "statement": "IVCD",
+      "description": "non-specific intraventricular conduction disturbance (block)",
+      "class": "CD",
+      "n": 79,
+      "code": 0.7070518972109248,
+      "ci": [
+        0.6463458125790188,
+        0.7642485034044693
+      ]
+    },
+    {
+      "statement": "CRBBB",
+      "description": "complete right bundle branch block",
+      "class": "CD",
+      "n": 54,
+      "code": 0.998896911351785,
+      "ci": [
+        0.9970972890760796,
+        0.9998885769042207
+      ]
+    },
+    {
+      "statement": "CLBBB",
+      "description": "complete left bundle branch block",
+      "class": "CD",
+      "n": 54,
+      "code": 0.9815260507197932,
+      "ci": [
+        0.966828090876677,
+        0.9932818837188573
+      ]
+    },
+    {
+      "statement": "LVH",
+      "description": "left ventricular hypertrophy",
+      "class": "HYP",
+      "n": 214,
+      "code": 0.9189316416262471,
+      "ci": [
+        0.8991859707105958,
+        0.9361066645471036
+      ]
+    },
+    {
+      "statement": "LAO/LAE",
+      "description": "left atrial overload/enlargement",
+      "class": "HYP",
+      "n": 42,
+      "code": 0.7691191983122363,
+      "ci": [
+        0.7010813806007635,
+        0.8354036379847297
+      ]
+    }
+  ],
+  "measurements": [
+    {
+      "reference": "CLBBB",
+      "n": 54,
+      "measure": "qrs",
+      "statistic": "QRS $\\geq$120 ms",
+      "code_stated": 1.0,
+      "code_n": 54,
+      "code_median": 131.25,
+      "code_stat": 0.8148148148148148
+    },
+    {
+      "reference": "CRBBB",
+      "n": 54,
+      "measure": "qrs",
+      "statistic": "QRS $\\geq$120 ms",
+      "code_stated": 1.0,
+      "code_n": 54,
+      "code_median": 131.25,
+      "code_stat": 0.9259259259259259
+    },
+    {
+      "reference": "IVCD",
+      "n": 79,
+      "measure": "qrs",
+      "statistic": "QRS $\\geq$120 ms",
+      "code_stated": 1.0,
+      "code_n": 79,
+      "code_median": 95.0,
+      "code_stat": 0.02531645569620253
+    },
+    {
+      "reference": "IRBBB",
+      "n": 112,
+      "measure": "qrs",
+      "statistic": "QRS 110--119 ms",
+      "code_stated": 1.0,
+      "code_n": 112,
+      "code_median": 92.0,
+      "code_stat": 0.09821428571428571
+    },
+    {
+      "reference": "NORM only",
+      "n": 912,
+      "measure": "qrs",
+      "statistic": "QRS $<$110 ms",
+      "code_stated": 0.9967105263157895,
+      "code_n": 909,
+      "code_median": 85.0,
+      "code_stat": 0.9977997799779978
+    },
+    {
+      "reference": "1AVB",
+      "n": 79,
+      "measure": "pr",
+      "statistic": "PR $>$200 ms",
+      "code_stated": 0.8481012658227848,
+      "code_n": 67,
+      "code_median": 217.5,
+      "code_stat": 0.7611940298507462
+    },
+    {
+      "reference": "NORM only",
+      "n": 912,
+      "measure": "pr",
+      "statistic": "PR 120--200 ms",
+      "code_stated": 0.9517543859649122,
+      "code_n": 868,
+      "code_median": 155.0,
+      "code_stat": 0.9585253456221198
+    },
+    {
+      "reference": "SBRAD",
+      "n": 63,
+      "measure": "hr",
+      "statistic": "HR $<$60/min",
+      "code_stated": 1.0,
+      "code_n": 63,
+      "code_median": 49.0,
+      "code_stat": 0.9682539682539683
+    },
+    {
+      "reference": "STACH",
+      "n": 82,
+      "measure": "hr",
+      "statistic": "HR $>$100/min",
+      "code_stated": 1.0,
+      "code_n": 82,
+      "code_median": 110.0,
+      "code_stat": 0.9390243902439024
+    },
+    {
+      "reference": "SR, no SBRAD, STACH or SARRH",
+      "n": 1671,
+      "measure": "hr",
+      "statistic": "HR 60--100/min",
+      "code_stated": 0.988031119090365,
+      "code_n": 1651,
+      "code_median": 70.0,
+      "code_stat": 0.8400969109630527
+    },
+    {
+      "reference": "LNGQT",
+      "n": 11,
+      "measure": "qtc",
+      "statistic": "QTc $>$450 ms",
+      "code_stated": 0.6363636363636364,
+      "code_n": 7,
+      "code_median": 457.0,
+      "code_stat": 0.5714285714285714
+    },
+    {
+      "reference": "NORM only",
+      "n": 912,
+      "measure": "qtc",
+      "statistic": "QTc $\\leq$450 ms",
+      "code_stated": 0.9002192982456141,
+      "code_n": 821,
+      "code_median": 395.0,
+      "code_stat": 0.9878197320341048
+    },
+    {
+      "reference": "LAFB",
+      "n": 162,
+      "measure": "axis",
+      "statistic": "axis $\\leq$$-30^\\circ$",
+      "code_stated": 0.9074074074074074,
+      "code_n": 147,
+      "code_median": -50.0,
+      "code_stat": 0.9523809523809523
+    },
+    {
+      "reference": "LAFB",
+      "n": 162,
+      "measure": "axis",
+      "statistic": "axis $\\leq$$-45^\\circ$",
+      "code_stated": 0.9074074074074074,
+      "code_n": 147,
+      "code_median": -50.0,
+      "code_stat": 0.6802721088435374
+    },
+    {
+      "reference": "LPFB",
+      "n": 18,
+      "measure": "axis",
+      "statistic": "axis $\\geq$$+90^\\circ$",
+      "code_stated": 0.7222222222222222,
+      "code_n": 13,
+      "code_median": 100.0,
+      "code_stat": 1.0
+    },
+    {
+      "reference": "Axis field ALAD",
+      "n": 134,
+      "measure": "axis",
+      "statistic": "axis $\\leq$$-30^\\circ$",
+      "code_stated": 0.8582089552238806,
+      "code_n": 115,
+      "code_median": -50.0,
+      "code_stat": 0.9652173913043478
+    },
+    {
+      "reference": "Axis field LAD",
+      "n": 391,
+      "measure": "axis",
+      "statistic": "axis $<$$0^\\circ$",
+      "code_stated": 0.9437340153452686,
+      "code_n": 369,
+      "code_median": -15.0,
+      "code_stat": 0.7940379403794038
+    },
+    {
+      "reference": "Axis field MID",
+      "n": 665,
+      "measure": "axis",
+      "statistic": "axis $-30^\\circ$ to $+90^\\circ$",
+      "code_stated": 0.9533834586466166,
+      "code_n": 634,
+      "code_median": 40.0,
+      "code_stat": 0.9968454258675079
+    },
+    {
+      "reference": "Axis field RAD or ARAD",
+      "n": 26,
+      "measure": "axis",
+      "statistic": "axis $>$$+90^\\circ$",
+      "code_stated": 0.8076923076923077,
+      "code_n": 21,
+      "code_median": 100.0,
+      "code_stat": 0.8095238095238095
+    },
+    {
+      "reference": "LVH",
+      "n": 214,
+      "measure": "sokolow",
+      "statistic": "Sokolow--Lyon $\\geq$3.5 mV",
+      "code_stated": 0.822429906542056,
+      "code_n": 176,
+      "code_median": 3.4400000000000004,
+      "code_stat": 0.4715909090909091
+    },
+    {
+      "reference": "NORM only",
+      "n": 912,
+      "measure": "sokolow",
+      "statistic": "Sokolow--Lyon $<$3.5 mV",
+      "code_stated": 0.9462719298245614,
+      "code_n": 863,
+      "code_median": 2.1,
+      "code_stat": 0.9803012746234068
+    },
+    {
+      "reference": "AFIB or AFLT",
+      "n": 147,
+      "measure": "af",
+      "statistic": "AF or flutter named",
+      "code_stated": 1.0,
+      "code_median": NaN,
+      "code_stat": 0.8843537414965986,
+      "code_n": 147
+    },
+    {
+      "reference": "SR, no AFIB or AFLT",
+      "n": 1672,
+      "measure": "af",
+      "statistic": "AF or flutter named",
+      "code_stated": 1.0,
+      "code_median": NaN,
+      "code_stat": 0.006578947368421052,
+      "code_n": 1672
+    }
+  ],
+  "coverage": {
+    "code": {
+      "hr": 0.9791473586654309,
+      "pr": 0.8429101019462465,
+      "qrs": 0.994902687673772,
+      "qtc": 0.6723818350324374,
+      "axis": 0.938368860055607,
+      "sokolow": 0.8257645968489342
+    }
+  },
+  "sandbox": {
+    "n": 2158,
+    "uses_mean": 3.467562557924004,
+    "errors_total": 79,
+    "records_with_error": 0.03243744207599629,
+    "error_rate_per_run": 0.010557263129760791,
+    "lines_median": 40.0,
+    "lines_q1": 31.0,
+    "lines_q3": 48.0,
+    "records_with_error_n": 70,
+    "records_last_run_error": 6,
+    "band_05_40": 1.0,
+    "band_05_40_n": 2158,
+    "band_separate_n": 8,
+    "dump": 0.8053753475440223,
+    "lead_amplitudes": 0.39759036144578314,
+    "full_table": 0.004170528266913809,
+    "printed_hr": 0.7970342910101946,
+    "printed_qrs": 0.4309545875810936,
+    "printed_pr": 0.026413345690454126,
+    "printed_qtc": 0.07924003707136237,
+    "printed_axis": 0.15013901760889714,
+    "printed_sokolow": 0.006950880444856348,
+    "uses_filter": 1.0,
+    "uses_notch": 0.37488415199258573,
+    "uses_peaks": 1.0,
+    "uses_median_beat": 0.9976830398517146,
+    "uses_plot": 0.0004633920296570899,
+    "tools": {
+      "bash_code_execution": 7483
+    },
+    "provenance": {
+      "hr": {
+        "stated": 0.9791473586654309,
+        "printed_any": 0.7970342910101946,
+        "printed_among_stated": 0.8021769995267393
+      },
+      "qrs": {
+        "stated": 0.994902687673772,
+        "printed_any": 0.4309545875810936,
+        "printed_among_stated": 0.42990218910107125
+      },
+      "pr": {
+        "stated": 0.8429101019462465,
+        "printed_any": 0.026413345690454126,
+        "printed_among_stated": 0.030786146234194612,
+        "unlabelled_n": 1763,
+        "dump_among_unlabelled": 0.8060124787294385
+      },
+      "qtc": {
+        "stated": 0.6723818350324374,
+        "printed_any": 0.07924003707136237,
+        "printed_among_stated": 0.10682288077188146,
+        "unlabelled_n": 1296,
+        "dump_among_unlabelled": 0.7978395061728395
+      },
+      "axis": {
+        "stated": 0.938368860055607,
+        "printed_any": 0.15013901760889714,
+        "printed_among_stated": 0.15604938271604937,
+        "unlabelled_n": 1709,
+        "dump_among_unlabelled": 0.8186073727325922
+      },
+      "sokolow": {
+        "stated": 0.8257645968489342,
+        "printed_any": 0.006950880444856348,
+        "printed_among_stated": 0.007856341189674524
+      }
+    }
+  },
+  "calibration": {
+    "NORM": {
+      "brier": 0.10846895273401298,
+      "ece": 0.0596848934198332,
+      "mean_p": 0.4411492122335496,
+      "prevalence": 0.4462465245597776,
+      "intercept": -0.021100387918528033,
+      "slope": 1.469080806136757
+    },
+    "MI": {
+      "brier": 0.14158697868396664,
+      "ece": 0.09940222428174235,
+      "mean_p": 0.15784522706209453,
+      "prevalence": 0.2548656163113994,
+      "intercept": 1.971894910320962,
+      "slope": 1.7387555147147964
+    },
+    "STTC": {
+      "brier": 0.1123112140871177,
+      "ece": 0.07352177942539387,
+      "mean_p": 0.27387395736793324,
+      "prevalence": 0.24142724745134383,
+      "intercept": 0.05476883698561692,
+      "slope": 1.4918939377001774
+    },
+    "CD": {
+      "brier": 0.10345083410565338,
+      "ece": 0.017613531047266005,
+      "mean_p": 0.2339063948100093,
+      "prevalence": 0.22984244670991658,
+      "intercept": -0.013369858162907478,
+      "slope": 1.0241600091735128
+    },
+    "HYP": {
+      "brier": 0.07452498851251159,
+      "ece": 0.05373776645041705,
+      "mean_p": 0.17151348470806305,
+      "prevalence": 0.12140871177015755,
+      "intercept": -0.26713209702523244,
+      "slope": 1.2702811072640574
+    }
+  },
+  "mi_likelihood": {
+    "n_mixed": 47,
+    "100": {
+      "n": 268,
+      "code": 0.9357770383158833,
+      "ci": [
+        0.9210767524318705,
+        0.9496967413399421
+      ],
+      "agesex": 0.72604909222544
+    },
+    "50to80": {
+      "n": 147,
+      "code": 0.8431016685281078,
+      "ci": [
+        0.8098397256912715,
+        0.8754340542187025
+      ],
+      "agesex": 0.6743599180965919
+    },
+    "15to35": {
+      "n": 135,
+      "code": 0.7358047724341257,
+      "ci": [
+        0.6937928413488116,
+        0.776885134512622
+      ],
+      "agesex": 0.6544799152386217
+    }
+  }
+}

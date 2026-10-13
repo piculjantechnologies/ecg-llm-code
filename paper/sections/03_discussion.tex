@@ -1,0 +1,115 @@
+\section{Discussion}
+
+A general-purpose LLM that received raw 12-lead recordings as files and processed them with code it wrote itself
+classified PTB-XL ECGs into the five diagnostic superclasses with a macro AUROC of \MainAUROC{} on the benchmark test
+fold, without ECG-specific training, retrieval, labelled examples or class prevalences in the prompt, and every record
+received an answer. This is \GapToBestPublishedAbs{} below the best published result with the same split, label
+definition and metric, reached by a supervised ensemble~\citep{Strodthoff2021} and by MultiresNet~\citep{shi2023multires},
+both trained on the labelled training folds. In an
+informal comparison, the result exceeds the best zero-shot ECG--language model~\citep{cai2025supreme} by
+$\GapToBestZeroShot$; that model was pretrained on hundreds of thousands of ECGs with report-derived labels. In other
+studies, general-purpose LLMs given ECG images or numeric series as text, including recent models, have scored near
+chance or missed most critical findings~\citep{liu2024teach,seki2025assessing,ahammad2026ecgimage,soubh2026performance,gao2026luminaecg,liu2025picture,langer2025opentslm}.
+
+The transcripts, analysed post hoc, show how the model used the sandbox. It wrote code to filter the signal and detect
+beats in every record and to form median beats in almost every record, but it rarely printed the full measurement
+table that the prompt asked for. Its code usually printed a heart rate, but for most of the PR intervals, QT or QTc
+intervals and axes that the model stated, no value was printed under the measurement's own label, and a Sokolow--Lyon sum
+was almost never printed. The printed median-beat samples suggest that the model read these
+intervals and axes from samples of the median beats it had built. The sandbox thus appears to have served less to
+replace reading with computation than to give the model median beats of its own making from the full recording, in the
+leads, segments and resolution it chose.
+
+In post hoc analyses by diagnostic statement, the superclass probabilities best separated records with complete
+bundle branch blocks, left anterior fascicular block, anterolateral or non-specific ischaemic change or anteroseptal
+infarction from records without the superclass (AUROC \PHStmtASMI--\PHStmtCRBBB). They did so least well for
+incomplete right bundle branch block and non-specific intraventricular conduction disturbance (\PHStmtIRBBB{} and
+\PHStmtIVCD), two statements defined by borderline QRS durations. This measures how well the superclass probability
+separated these records, not whether the statement itself was identified. For these two statements, the QRS durations
+that the model stated rarely met the prompt's criteria (110--119\,ms in \PHMeasIRBBBCodeCrit\% and 120\,ms or more in
+\PHMeasIVCDCodeCrit\% of the records).
+
+The remaining gap to supervised networks is unlikely to reflect missing information in the recordings, since networks
+trained on the same recordings reach \BestPublishedAUROC~\citep{Strodthoff2021}. A zero-shot model can apply only the
+criteria it is given or knows, and PTB-XL's labels reflect the annotators' practice as well as textbook thresholds. In
+post hoc analyses, MI discrimination fell from \PHMILikHundred{} to \PHMILikLow{} as the highest likelihood that the
+annotator assigned to a record's MI statements fell from 100 to 15--35. Part of this fall is expected for any
+classifier (the age-and-sex control also fell, from \PHMILikHundredAgeSex{} to \PHMILikLowAgeSex), and without
+per-record predictions of supervised networks we did not test whether theirs falls less. Among records labelled left
+ventricular hypertrophy (LVH) whose key findings stated a Sokolow--Lyon voltage, about half (\PHMeasLVHCodeCrit\%)
+stated 3.5\,mV or more (median \PHMeasLVHCodeMedian\,mV); LVH labels may rest on other criteria or on the annotators'
+judgement. Supervised models may learn such labelling conventions from the labels; this is a hypothesis that our data
+cannot test. The stated measurements may also reflect the 0.5--40\,Hz filter that the model chose in every record: an
+upper cutoff of 40\,Hz, far below the 150\,Hz recommended for diagnostic ECGs in
+adults~\citep{kligfield2007recommendations}, can reduce QRS amplitudes and blur QRS onset and offset. In the
+development runs, labelled examples attached as files did not measurably improve on the frozen prompt: on the same
+100 records, macro AUROC was \DevBoth{} with them and \DevVTwoHundred{} without, a paired difference of
+$\DevBothDiff$ ($\DevBothDiffLow$ to $\DevBothDiffHigh$) that was computed after the freeze from the same runs. Nor did
+rules for PTB-XL's labelling conventions (Table~\ref{tab:development}), although the samples were small.
+
+Each answer came with the code the model ran, what the code printed and the key findings, and the complete transcript of
+every request is part of the released data. These records make the model's work inspectable in a way that class
+scores are not: a reader can check how the signal was filtered, how the beats were detected and what was printed, as in
+Fig.~\ref{fig:example}. They document how the median beats were formed more fully than how each stated value was
+obtained, because most stated PR intervals, QT or QTc intervals and axes appear to have been read from printed samples
+rather than computed, and the stated values were rounded and sometimes differed from printed ones. In a post hoc
+comparison, the stated values were consistent with the cardiologists' statements for rate, rhythm and QRS duration in
+complete bundle branch block, partly for the PR interval in first-degree atrioventricular block and the axis in left
+anterior fascicular block, for about half of the LVH records that stated a Sokolow--Lyon voltage, and poorly for
+incomplete right bundle branch block and non-specific intraventricular conduction disturbance. The consistency for rate,
+rhythm and complete bundle branch block suggests that the key findings were specific to each recording. Consistency with
+categorical statements is not accuracy: the stated values were not compared with reference measurements, such as those
+that ECG software provides for PTB-XL~\citep{Strodthoff2023ptbxlplus}; the reasoning returned by the API is a summary;
+and we did not test whether the stated measurements determined the probabilities.
+
+For practice, the approach needs no labelled data for model training, although the prompt was developed on
+\NDevRecordsUsed{} labelled validation records; it needs only a general-purpose LLM with a Python sandbox and a prompt.
+It is not ready for clinical use. Discrimination was below that of trained networks, the superclass task is coarse and
+leaves out rhythm diagnoses, the probabilities would need recalibration, and the model did not follow its measurement
+instructions reliably. Inference cost about USD \CostPerRecord{} per ECG at batch prices (USD \CostPerThousand{} per
+thousand), far more than running a trained network, and the batch interface returns results after a delay. Sending raw
+ECGs to an external service requires data-governance arrangements, and clinical use would require prospective
+validation and review of errors by cardiologists. A potential advantage, not tested here, is that the same model can be
+redirected to other criteria or tasks by changing the prompt rather than by retraining.
+
+This study has limitations. It used one public dataset. PTB-XL and its labels have been public since
+2020~\citep{Wagner2020} and derived measurements since 2023~\citep{Strodthoff2023ptbxlplus}, all before the model's
+training-data cutoff (June 2026~\citep{anthropic2026models}). The model knew that it was classifying PTB-XL records,
+because the prompt names PTB-XL's superclasses, and it had some knowledge of the dataset: the API returned a non-empty
+reasoning summary for \PHSummariesNonEmptyN{} of \NTest{} records, and \PHThinkPTBXLN{} of these
+(\PHThinkPTBXLNonEmptyPct\%) mentioned PTB-XL by name (post hoc), mostly its labelling conventions; in the example of
+Fig.~\ref{fig:example} the model reasoned that voltage-only LVH is often labelled as LVH in datasets like PTB-XL. The
+files carried anonymous names and no identifiers, so the model could not look a record up by name, but we cannot exclude
+that exposure to PTB-XL or to work that used it during training affected the result. The setting is zero-shot in a
+narrow sense: the model's parameters were not updated and the prompt contained no labelled examples or class
+prevalences, but the prompt defines the superclasses as PTB-XL does, and the configuration was chosen on labelled
+validation records. In this configuration, the test fold was read once, by one model from one vendor; the same model had
+read the same test records in a separate study by the author, and that study's results were known before development of
+this configuration began (Methods). No configuration of this model without the sandbox is reported here, so the study
+does not show how much of the result is due to the sandbox itself; the pre-specified comparison with that study's
+configuration, in which the model read numeric median beats without a sandbox, was computed after the test run but is
+not reported (Methods). Outputs are not deterministic, no repeat runs were made, and the confidence
+intervals reflect the sampling of records only. Variants of the frozen prompt were compared on 100 or 200 records, where
+the 95\% CIs of the paired differences had half-widths of about \DevFreshVFiveDiffHalfWidth{} (200 records) and
+\DevBothDiffHalfWidth--\DevStatementsDiffHalfWidth{} (100 records), so differences of about that size or smaller could
+not be reliably detected. Comparisons with published results are informal, because inputs (sampling rates; age and sex,
+which only this model received) and in some cases splits differ and per-record predictions were not available. The
+measurements were extracted from free text with regular expressions, and the statements they were compared with are
+categorical labels of a single annotation process that, following the benchmark definition, include statements of any
+likelihood. The analysis of what the model did in the sandbox, the per-statement results, the subgroups, the calibration
+analysis, the MI likelihood strata, the patient-level bootstrap, the age-and-sex control on the validation fold, the
+measurement analysis and the count of PTB-XL mentions in the reasoning summaries
+were added after the test run.
+
+Evaluation on ECGs recorded after the model's training-data cutoff would address both generalization and possible exposure
+to PTB-XL. Comparing the stated measurements with reference measurements, prompts or tools that make the model compute
+its measurements in code, having cardiologists review the transcripts of errors, stratifying the predictions of a
+supervised network by annotation likelihood, extending the approach to PTB-XL's finer statement and rhythm
+tasks~\citep{Strodthoff2021}, repeating runs and testing LLMs from other vendors would show how far the approach
+extends and how far its written work can be trusted.
+
+In conclusion, given a Python sandbox and raw 12-lead recordings, a general-purpose LLM processed each ECG with its own
+code and classified the PTB-XL superclasses with a macro AUROC of \MainAUROC{} without training on labelled ECGs,
+between published zero-shot ECG--language models and supervised networks. It used code mainly to prepare median
+beats, and its transcripts suggest that it read most of the intervals and axes it stated from samples it printed;
+every answer came with the code the model ran, what the code printed and the measurements the model stated.

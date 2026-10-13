@@ -1,0 +1,22 @@
+% Supplementary Information for npj Digital Medicine: one separate PDF.
+\documentclass[11pt]{article}
+\newcommand{\ExternalDocument}{main}
+\input{preamble}
+\hypersetup{pdftitle={Supplementary Information: \PaperTitle}}
+
+\begin{document}
+\begin{center}
+  {\Large\bfseries Supplementary Information}\\[1.5ex]
+  {\large \PaperTitle}\\[1.5ex]
+  \PaperAuthor
+\end{center}
+
+\input{sections/A_supplement}
+
+\renewcommand{\refname}{Supplementary References}
+\setlength{\bibsep}{2pt plus 1pt}  % tighter than in the manuscript; keeps the list from spilling onto an extra page
+\singlespacing
+\bibliographystyle{unsrtnat}
+\bibliography{refs}
+
+\end{document}

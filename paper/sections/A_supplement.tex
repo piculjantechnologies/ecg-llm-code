@@ -1,0 +1,148 @@
+% Supplementary Information (input by supplement.tex). Numbering follows the journal's style:
+% "Supplementary Table 1", "Supplementary Fig. 1", "Supplementary Section 1".
+\makeatletter
+\def\thetable{\arabic{table}}
+\def\theHtable{S\arabic{table}}
+\def\tablename{Supplementary Table}
+\def\thefigure{\arabic{figure}}
+\def\theHfigure{S\arabic{figure}}
+\def\figurename{Supplementary Fig.}
+\def\thesection{\arabic{section}}
+\def\theHsection{S\arabic{section}}
+\def\SI@prefix@section{Supplementary Section~}
+\def\@seccntformat#1{\csname SI@prefix@#1\endcsname\csname the#1\endcsname\quad}
+\setlength{\@fptop}{0pt}  % a page of floats starts at the top, not vertically centred
+\setlength{\@fpbot}{0pt plus 1fil}
+\setlength{\@fpsep}{\floatsep}  % and its floats are stacked, not spread over the page
+\makeatother
+\setcounter{table}{0}
+\setcounter{figure}{0}
+\setcounter{section}{0}
+
+\noindent\textbf{Contents}
+{\setstretch{1.1}  % compact, so that Supplementary Table 1 fits below
+\begin{itemize}\setlength{\itemsep}{0pt}
+  \item Supplementary Table~\ref{tab:characteristics}: characteristics of the benchmark splits
+  \item Supplementary Table~\ref{tab:provenance}: stated measurements and labelled values in the printed code output
+    (post hoc)
+  \item Supplementary Table~\ref{tab:perclass}: discrimination by superclass on the test fold
+  \item Supplementary Table~\ref{tab:benchmark}: macro AUROC compared with published results
+  \item Supplementary Table~\ref{tab:statements}: discrimination by diagnostic statement (post hoc)
+  \item Supplementary Table~\ref{tab:measurements}: measurements stated in the key findings (post hoc)
+  \item Supplementary Table~\ref{tab:subgroups}: macro AUROC by subgroup (post hoc)
+  \item Supplementary Fig.~\ref{fig:usage}: code runs, output tokens and cost per record
+  \item Supplementary Fig.~\ref{fig:curves}: ROC and precision--recall curves; reliability curves (post hoc)
+  \item Supplementary Section~\ref{app:example}: example user message
+  \item Supplementary Section~\ref{app:transcript}: transcript of the example record
+  \item Supplementary Section~\ref{app:prompt}: system prompt
+  \item Supplementary Section~\ref{app:schema}: output schema
+\end{itemize}
+\par}
+% Items are numbered, and placed, in the order of their first citation in the manuscript (tables, figures and
+% sections each in their own sequence); \FloatBarrier keeps the figures from floating ahead of the tables.
+
+\CharacteristicsTable
+\ProvenanceTable
+
+\begin{table}[!htbp]
+  \centering
+  \caption{\textbf{Discrimination by superclass on the test fold} (\NTest{} records). The model and the age-and-sex
+  control, with 95\% percentile bootstrap CIs from the \NBoot{} resamples of the primary analysis; of the values by
+  class, only the model's AUROC, without its CI, was pre-specified. Positives: test records with the superclass label,
+  $n$ (\%). Difference: model minus control, paired on the same resamples. AUPRC: average precision of the model;
+  without skill, it equals the class prevalence (for the macro average, the mean prevalence).}
+  \label{tab:perclass}
+  \footnotesize\setlength{\tabcolsep}{5pt}
+  \begin{tabular}{lrcccc}
+    \toprule
+    Class & Positives, $n$ (\%) & AUROC [95\% CI] & Control AUROC & Difference [95\% CI] & AUPRC \\
+    \midrule
+    NORM & \PosNORM{} (\PrevNORM) & \MainNORM{} [\MainNORMLow, \MainNORMHigh] & \AgeSexNORM &
+      $\CodeVsAgeSexNORM$ [$\CodeVsAgeSexNORMLow$, $\CodeVsAgeSexNORMHigh$] & \AUPRCNORM \\
+    MI & \PosMI{} (\PrevMI) & \MainMI{} [\MainMILow, \MainMIHigh] & \AgeSexMI &
+      $\CodeVsAgeSexMI$ [$\CodeVsAgeSexMILow$, $\CodeVsAgeSexMIHigh$] & \AUPRCMI \\
+    STTC & \PosSTTC{} (\PrevSTTC) & \MainSTTC{} [\MainSTTCLow, \MainSTTCHigh] & \AgeSexSTTC &
+      $\CodeVsAgeSexSTTC$ [$\CodeVsAgeSexSTTCLow$, $\CodeVsAgeSexSTTCHigh$] & \AUPRCSTTC \\
+    CD & \PosCD{} (\PrevCD) & \MainCD{} [\MainCDLow, \MainCDHigh] & \AgeSexCD &
+      $\CodeVsAgeSexCD$ [$\CodeVsAgeSexCDLow$, $\CodeVsAgeSexCDHigh$] & \AUPRCCD \\
+    HYP & \PosHYP{} (\PrevHYP) & \MainHYP{} [\MainHYPLow, \MainHYPHigh] & \AgeSexHYP &
+      $\CodeVsAgeSexHYP$ [$\CodeVsAgeSexHYPLow$, $\CodeVsAgeSexHYPHigh$] & \AUPRCHYP \\
+    \midrule
+    Macro average & -- & \MainAUROC{} [\MainAUROCLow, \MainAUROCHigh] & \AgeSexAUROC &
+      $\CodeVsAgeSex$ [$\CodeVsAgeSexLow$, $\CodeVsAgeSexHigh$] & \MainAUPRC \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+  \centering
+  \caption{\textbf{Macro AUROC on the PTB-XL diagnostic superclass task (5 superclasses).} Published values as reported by
+  their authors; this work on all \NTest{} test-fold records with 95\% percentile bootstrap CIs in brackets (\NBoot{}
+  resamples; results by class in Supplementary Table~\ref{tab:perclass}).}
+  \label{tab:benchmark}
+  \footnotesize\renewcommand{\arraystretch}{0.97}
+  \input{generated/table_benchmark}
+  \par\smallskip
+  \begin{minipage}{\linewidth}\scriptsize
+  Original benchmark: uncertainty as printed in~\citet{Strodthoff2021} (bootstrap, last digits); these models were
+  evaluated on the PTB-XL release before version 1.0.2, whose test fold had 2{,}163 records with a superclass; the
+  \NTest{} test records used here (version 1.0.3) are a subset of them with identical superclass labels.
+  $^\dagger$Split not stated, or a different test set (the multimodal-LLM rows use a \NOtherTestSet-record hold-out set;
+  RecursiveECG uses all 2{,}203 fold-10 records of an earlier PTB-XL release, including records without a
+  superclass); not directly comparable. RecursiveECG: a supervised classifier, initially a 12-lead ResNet, whose
+  architecture and code an LLM agent (DeepSeek-V4-Pro) revised in up to five rounds, keeping revisions that improved
+  validation performance; mean of 5 runs, each repeating the design process. HuBERT-ECG's self-supervised pretraining
+  corpus includes PTB-XL (unlabelled). PULSE and general-purpose LLM values: ref.~\citenum{liu2024teach}, Table~1.
+  SuPreME was pretrained on diagnostic labels extracted from reports by a language model, not on the report text.
+  Inputs differ: only this work received age and sex, and it received the signal at 500\,Hz (other sampling rates as
+  listed). Comparisons with published results are informal (no per-record predictions available).
+  \end{minipage}
+\end{table}
+
+\StatementTable
+\MeasurementTable
+\SubgroupTable
+\FloatBarrier
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=\linewidth]{figS2_usage}
+  \caption{\textbf{Tool use and cost per record in the test run} (\NTest{} records). \textbf{a}, Number of code runs.
+  \textbf{b}, Output tokens (reasoning, code and answer). \textbf{c}, Cost at batch prices; the dashed line is the
+  mean. Input tokens, not shown, averaged \InputTokensMean{} per record (\CacheReadPct\% read from the prompt cache);
+  cache writes accounted for \CacheWriteCostPct\% of the cost.}
+  \label{fig:usage}
+\end{figure}
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=\linewidth]{figS1_curves}
+  \caption{\textbf{ROC, precision--recall and reliability curves on the test fold.} \textbf{a}, ROC;
+  \textbf{b}, precision--recall (without skill, precision equals the class prevalence); \textbf{c}, reliability (post
+  hoc; colours as in \textbf{a} and \textbf{b}); all \NTest{} records. Reliability: predicted probabilities in ten
+  equal-width bins (a probability on a bin edge goes to the upper bin, as for the expected calibration error; bins with
+  at least 20 records shown), mean predicted probability against observed frequency; the dashed line is perfect
+  calibration.}
+  \label{fig:curves}
+\end{figure}
+\clearpage
+
+\section{Example user message}\label{app:example}
+The user message of the record in Fig.~\ref{fig:example} (PTB-XL \texttt{ecg\_id} \ExampleECGID, validation fold), as
+sent (the long line is wrapped for the page, with the continuation indented), and the first rows of the attached file.
+\input{generated/example_input}
+
+\section{Transcript of the example record}\label{app:transcript}
+Every code run of the model for the record in Fig.~\ref{fig:example}, with the printed output (long outputs cut after
+30 lines, as marked), the summarized reasoning returned by the API and the final answer. Lines longer than the page
+are wrapped; non-ASCII symbols are transliterated.
+\input{generated/transcript}
+
+\section{System prompt}\label{app:prompt}
+The complete system prompt of the frozen configuration, identical for every request. The exact text is the file
+\nolinkurl{prompts/reader_code_v2_measure.md} in the repository, whose SHA-256 hash begins \PromptSHA; here, long lines are wrapped for the page, with continuation lines indented.
+\input{generated/prompt}
+
+\section{Output schema}\label{app:schema}
+Responses were constrained to this JSON schema; probabilities outside $[0,1]$ would be clipped.
+\input{generated/schema}
