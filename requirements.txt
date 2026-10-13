@@ -1,0 +1,8 @@
+anthropic>=0.117      # tested with 0.117.0
+numpy
+scipy
+pandas
+scikit-learn
+wfdb
+matplotlib
+pytest

@@ -1,0 +1,28 @@
+{
+  "run": "test_v2",
+  "records": 2158,
+  "code_runs": 7483,
+  "python_env": "replay",
+  "runs_by_class": {
+    "identical": 7016,
+    "whitespace": 0,
+    "rounding": 462,
+    "different": 5
+  },
+  "runs_exit_status_matched": 7483,
+  "runs_error_status_matched": 7483,
+  "api_errors": 79,
+  "api_errors_reproduced": 79,
+  "local_errors_not_in_api": 0,
+  "records_all_identical": 1718,
+  "records_all_reproduced": 2153,
+  "rounding_max_rel_diff": 8.594337436263815e-10,
+  "rounding_max_abs_diff": 8.516025218341383e-09,
+  "versions": {
+    "python": "3.11.17",
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "pandas": "2.2.3",
+    "matplotlib": "3.10.6"
+  }
+}

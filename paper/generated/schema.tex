@@ -1,0 +1,52 @@
+\begin{small}
+\begin{verbatim}
+{
+ "type": "object",
+ "properties": {
+  "records": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "properties": {
+     "record_id": {
+      "type": "string"
+     },
+     "key_findings": {
+      "type": "string"
+     },
+     "p_NORM": {
+      "type": "number"
+     },
+     "p_MI": {
+      "type": "number"
+     },
+     "p_STTC": {
+      "type": "number"
+     },
+     "p_CD": {
+      "type": "number"
+     },
+     "p_HYP": {
+      "type": "number"
+     }
+    },
+    "required": [
+     "record_id",
+     "key_findings",
+     "p_NORM",
+     "p_MI",
+     "p_STTC",
+     "p_CD",
+     "p_HYP"
+    ],
+    "additionalProperties": false
+   }
+  }
+ },
+ "required": [
+  "records"
+ ],
+ "additionalProperties": false
+}
+\end{verbatim}
+\end{small}

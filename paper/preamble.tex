@@ -1,0 +1,63 @@
+% Shared preamble of main.tex (manuscript) and supplement.tex (Supplementary Information). The including file defines
+% \ExternalDocument, the other document, whose labels \ref and \pageref resolve through xr-hyper (build order in the
+% Makefile). Numbers come from generated/*.tex, never typed by hand:
+%   results.tex          python analysis/results.py   (pre-specified endpoints with the frozen evaluation code; development)
+%   posthoc.tex          python analysis/posthoc.py   (POST HOC and exploratory analyses, prefix PH; tables)
+%   replay.tex           python analysis/replay.py    (POST HOC local replay of the model's code, prefix RP)
+%   example.tex, prompt.tex, schema.tex, example_input.tex, transcript.tex, table_benchmark.tex
+%                        python analysis/si.py
+% Figures in figures/ are written by  python analysis/figures.py.  Signed macros are always used in math mode,
+% e.g. $\CodeVsAgeSex$, so that they print with a true minus sign.
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{upquote}  % straight quotes in verbatim (prompt, transcript), so that copied code stays valid Python
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\usepackage{graphicx}
+\graphicspath{{figures/}{generated/}}
+\usepackage{xcolor}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage[switch]{lineno}
+\usepackage{placeins}
+\usepackage{etoolbox}
+\AtBeginEnvironment{table}{\setlength{\belowcaptionskip}{6pt}}  % space between a table caption (on top) and the table
+\usepackage{xr-hyper}
+\usepackage[hidelinks]{hyperref}
+\input{generated/results}
+\input{generated/posthoc}
+\input{generated/replay}
+\input{generated/example}
+% lineno stores a line label as \getpagewiselinenumber{N}, N being the line counter just before that line is numbered;
+% lineno's own macro is not expandable, which breaks importing the label into the other document. The manuscript
+% numbers lines continuously, so the printed line number is N + 1.
+\def\getpagewiselinenumber#1{\the\numexpr#1+1\relax}
+% Import labels only (nocite): each document keeps its own reference list and numbering. After the macros, because
+% imported captions use them.
+\externaldocument[][nocite]{\ExternalDocument}
+\setlength{\emergencystretch}{2em}
+
+\makeatletter
+\def\fps@figure{tbp}
+\def\fps@table{tbp}
+\makeatother
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.7}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}
+
+
+
+\newcommand{\PaperTitle}{A general-purpose language model writes its own code to classify raw 12-lead ECGs without
+training}
+\newcommand{\PaperAuthor}{Neven Pi\v{c}uljan and Alan Jovi\'c}  % PDF metadata and the SI title page
+% PDF metadata (document properties); supplement.tex replaces the title with its own.
+\hypersetup{pdftitle={\PaperTitle}, pdfauthor={\PaperAuthor}}
