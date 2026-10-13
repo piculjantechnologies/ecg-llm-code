@@ -1,0 +1,175 @@
+% Generated from dev200b_v2/results.jsonl, record d0043 (PTB-XL ecg_id 30)
+\begin{scriptsize}
+\begin{verbatim}
+=== Code run 1: command ===
+cd $INPUT_DIR; head -3 d0043.csv; wc -l d0043.csv
+=== Code run 1: printed output ===
+t_ms,I,II,III,aVR,aVL,aVF,V1,V2,V3,V4,V5,V6
+0,-0.065,0.265,0.330,-0.100,-0.198,0.297,0.050,-0.215,-0.085,-0.130,-0.220,-0.155
+2,-0.065,0.265,0.330,-0.100,-0.198,0.297,0.050,-0.215,-0.085,-0.130,-0.220,-0.155
+5001 d0043.csv
+
+=== Code run 2: command ===
+cd $INPUT_DIR; cat > /tmp/a.py <<'EOF'
+import pandas as pd,numpy as np
+from scipy.signal import butter,filtfilt,find_peaks
+d=pd.read_csv('d0043.csv');fs=500
+L=list(d.columns[1:]);X=d[L].values
+b,a=butter(2,[0.5,40],btype='band',fs=fs);Y=filtfilt(b,a,X,axis=0)
+e=np.sum(np.abs(np.diff(Y,axis=0)),axis=1)
+pk,_=find_peaks(e,height=np.percentile(e,98)*0.4,distance=int(0.3*fs))
+# refine on lead II abs
+rr=np.diff(pk)/fs
+print('HR',60/rr.mean(),'RR sd',rr.std(),len(pk))
+print(np.round(rr,3))
+beats=np.array([Y[p-300:p+400] for p in pk if p>300 and p+400<len(Y)])
+M=np.median(beats,axis=0)
+t=np.arange(-300,400)*2
+for i,l in enumerate(L):
+  m=M[:,i]
+  print(l,' '.join(f'{v:.2f}' for v in m[250:450:5]))
+np.save('/tmp/M.npy',M)
+EOF
+python /tmp/a.py
+=== Code run 2: printed output ===
+HR 63.81620931716655 RR sd 0.009816312953446382 11
+[0.932 0.944 0.936 0.928 0.946 0.954 0.958 0.942 0.93  0.932]
+I -0.07 -0.07 -0.07 -0.08 -0.10 -0.09 0.07 0.33 0.62 0.74 0.38 -0.18 -0.32 -0.25 -0.16 -0.09 -0.08 -0.06 
+  -0.04 -0.04 -0.03 -0.03 -0.01 -0.00 0.01 0.03 0.05 0.07 0.09 0.12 0.14 0.17 0.21 0.24 0.26 0.26 0.25 
+  0.22 0.18 0.14
+II -0.07 -0.09 -0.08 -0.09 -0.10 -0.07 0.13 0.47 0.81 0.91 0.30 -0.26 -0.51 -0.43 -0.26 -0.15 -0.09 
+  -0.07 -0.06 -0.05 -0.03 -0.03 -0.02 -0.01 0.00 0.02 0.04 0.06 0.08 0.09 0.12 0.14 0.17 0.20 0.21 0.22 
+  0.21 0.20 0.17 0.13
+III -0.01 -0.01 -0.01 -0.00 -0.00 0.02 0.05 0.12 0.18 0.18 -0.01 -0.09 -0.20 -0.18 -0.10 -0.04 -0.01 
+  -0.01 -0.00 -0.01 0.00 0.01 -0.01 -0.01 -0.02 -0.02 -0.02 -0.02 -0.01 -0.03 -0.02 -0.03 -0.04 -0.05 
+  -0.06 -0.06 -0.04 -0.03 -0.01 -0.00
+aVR 0.08 0.08 0.08 0.09 0.10 0.08 -0.09 -0.40 -0.71 -0.83 -0.35 0.24 0.42 0.34 0.21 0.12 0.09 0.06 0.05 
+  0.04 0.03 0.03 0.02 0.01 -0.00 -0.02 -0.05 -0.06 -0.08 -0.10 -0.13 -0.16 -0.19 -0.21 -0.23 -0.23 -0.22 
+  -0.21 -0.17 -0.13
+aVL -0.04 -0.03 -0.03 -0.04 -0.05 -0.06 0.01 0.10 0.23 0.28 0.20 -0.06 -0.06 -0.04 -0.03 -0.03 -0.04 
+  -0.03 -0.02 -0.01 -0.01 -0.01 -0.00 0.01 0.01 0.02 0.03 0.05 0.05 0.07 0.08 0.10 0.12 0.15 0.16 0.16 
+  0.15 0.12 0.10 0.07
+aVF -0.04 -0.05 -0.05 -0.05 -0.05 -0.03 0.09 0.30 0.49 0.53 0.14 -0.17 -0.35 -0.30 -0.18 -0.09 -0.05 
+  -0.04 -0.03 -0.03 -0.02 -0.01 -0.01 -0.01 -0.00 0.00 0.02 0.02 0.03 0.03 0.05 0.06 0.06 0.08 0.08 0.09 
+  0.08 0.08 0.09 0.07
+V1 0.04 0.04 0.04 0.06 0.13 0.18 0.05 -0.34 -0.88 -1.25 -1.01 -0.46 -0.23 -0.15 -0.01 0.06 0.09 0.10 
+  0.10 0.10 0.10 0.09 0.09 0.09 0.08 0.08 0.07 0.07 0.06 0.05 0.04 0.02 0.00 -0.01 -0.03 -0.04 -0.03 
+  -0.03 -0.02 -0.01
+V2 -0.02 -0.02 -0.03 -0.01 0.16 0.34 0.24 -0.84 -2.44 -3.10 -2.61 -1.68 -1.12 -0.73 -0.26 0.02 0.12 0.17 
+  0.19 0.21 0.23 0.25 0.28 0.30 0.33 0.36 0.39 0.44 0.50 0.57 0.63 0.69 0.75 0.78 0.78 0.77 0.73 0.64 
+  0.55 0.45
+V3 -0.08 -0.07 -0.08 -0.06 0.03 0.18 0.31 -0.10 -1.09 -1.63 -1.70 -1.44 -1.08 -0.67 -0.25 -0.02 0.07 
+  0.11 0.14 0.16 0.18 0.20 0.23 0.26 0.29 0.32 0.36 0.41 0.46 0.53 0.59 0.64 0.69 0.72 0.70 0.67 0.60 
+  0.51 0.42 0.33
+V4 -0.13 -0.13 -0.12 -0.12 -0.12 -0.03 0.21 0.58 1.03 1.26 0.39 -0.70 -0.82 -0.56 -0.30 -0.15 -0.09 
+  -0.06 -0.04 -0.02 -0.00 0.02 0.04 0.06 0.08 0.10 0.13 0.17 0.20 0.24 0.29 0.34 0.37 0.39 0.38 0.38 
+  0.35 0.32 0.26 0.20
+V5 -0.13 -0.13 -0.12 -0.12 -0.17 -0.16 0.05 0.67 1.68 2.19 0.96 -0.36 -0.56 -0.43 -0.28 -0.19 -0.15 
+  -0.12 -0.10 -0.10 -0.09 -0.07 -0.05 -0.04 -0.03 -0.01 0.01 0.03 0.06 0.09 0.12 0.16 0.19 0.22 0.25 
+  0.26 0.26 0.24 0.20 0.15
+V6 -0.10 -0.10 -0.10 -0.10 -0.15 -0.17 -0.01 0.48 1.32 1.75 0.97 -0.05 -0.33 -0.28 -0.21 -0.15 -0.12 
+  -0.11 -0.10 -0.09 -0.08 -0.07 -0.06 -0.05 -0.04 -0.03 -0.02 0.00 0.02 0.04 0.06 0.09 0.12 0.15 0.17 
+  0.19 0.20 0.19 0.16 0.12
+
+=== Code run 3: command ===
+cd /tmp; cat > b.py <<'EOF'
+import numpy as np
+M=np.load('/tmp/M.npy');L='I II III aVR aVL aVF V1 V2 V3 V4 V5 V6'.split()
+for l in ['II','V1','V2','V5']:
+  i=L.index(l);print(l,' '.join(f'{v:.2f}' for v in M[150:300:4,i]))
+g=np.sum(np.abs(np.gradient(M,axis=0)),axis=1)
+print(' '.join(f'{v:.2f}' for v in g[240:360:3]))
+EOF
+python b.py
+=== Code run 3: printed output ===
+II -0.07 -0.07 -0.06 -0.06 -0.06 -0.07 -0.06 -0.06 -0.05 -0.05 -0.03 -0.01 0.01 0.03 0.04 0.05 0.05 0.04 
+  0.04 0.02 -0.00 -0.03 -0.05 -0.07 -0.07 -0.07 -0.09 -0.09 -0.09 -0.09 -0.10 -0.09 0.02 0.25 0.54 0.81 
+  0.94 0.59
+V1 0.05 0.04 0.04 0.05 0.04 0.04 0.05 0.06 0.06 0.07 0.07 0.08 0.09 0.08 0.07 0.05 0.04 0.03 0.03 0.04 
+  0.04 0.04 0.04 0.04 0.04 0.04 0.04 0.04 0.04 0.07 0.13 0.18 0.14 -0.07 -0.44 -0.88 -1.21 -1.19
+V2 -0.02 -0.02 -0.02 -0.02 -0.02 -0.02 -0.02 -0.02 -0.01 -0.00 0.00 0.01 0.02 0.02 0.02 0.00 -0.03 -0.04 
+  -0.04 -0.03 -0.03 -0.03 -0.03 -0.03 -0.03 -0.02 -0.02 -0.02 -0.03 0.01 0.16 0.31 0.35 -0.06 -1.16 
+  -2.44 -3.07 -2.90
+V5 -0.11 -0.11 -0.11 -0.11 -0.11 -0.11 -0.11 -0.10 -0.10 -0.09 -0.08 -0.08 -0.07 -0.07 -0.07 -0.07 -0.07 
+  -0.07 -0.07 -0.07 -0.08 -0.09 -0.10 -0.11 -0.12 -0.13 -0.13 -0.12 -0.12 -0.13 -0.17 -0.17 -0.07 0.24 
+  0.85 1.68 2.23 1.62
+0.02 0.02 0.02 0.02 0.01 0.01 0.01 0.01 0.04 0.10 0.13 0.13 0.23 0.49 0.88 1.22 1.40 1.11 0.29 1.09 1.70 
+  1.47 0.78 0.33 0.30 0.42 0.43 0.33 0.20 0.12 0.07 0.06 0.04 0.04 0.03 0.02 0.03 0.02 0.03 0.03
+
+=== Code run 4: command ===
+cd /tmp; cat > c.py <<'EOF'
+import numpy as np
+M=np.load('/tmp/M.npy');L='I II III aVR aVL aVF V1 V2 V3 V4 V5 V6'.split()
+bl=M[250:262].mean(0);M=M-bl
+g=np.sqrt(np.sum(np.gradient(M,axis=0)**2,axis=1))
+thr=0.1*g[260:340].max()
+idx=np.where(g[200:360]>thr)[0]+200
+print('on',idx.min(),'off',idx.max(),'QRS ms',(idx.max()-idx.min())*2)
+on=idx.min();off=idx.max()
+# T end: lead V2 
+for l in L:
+  i=L.index(l);m=M[:,i];q=m[on:on+25].min();
+  print(f"{l:4s} R {m[on:off].max():.2f} S {m[on:off].min():.2f} J {m[off]:.2f} J60 {m[off+30]:.2f} T 
+  {m[off+50:off+220][np.argmax(abs(m[off+50:off+220]))]:.2f}")
+v=M[:,L.index('V2')];tp=off+50+np.argmax(v[off+50:off+250]);
+d=np.gradient(v);k=tp+np.argmin(d[tp:tp+100]);te=k+int(v[k]/(-d[k]))
+print('QT',(te-on)*2,'QTc',(te-on)*2/np.sqrt(0.94))
+I=M[on:off,0].sum();F=M[on:off,5].sum();print('axis',np.degrees(np.arctan2(F*2/np.sqrt(3),I)))
+EOF
+python c.py
+=== Code run 4: printed output ===
+on 275 off 324 QRS ms 98
+I    R 0.83 S -0.25 J -0.02 J60 0.04 T 0.34
+II   R 1.03 S -0.43 J -0.08 J60 0.06 T 0.30
+III  R 0.22 S -0.20 J -0.04 J60 0.02 T -0.05
+aVR  R 0.34 S -0.93 J 0.06 J60 -0.05 T -0.31
+aVL  R 0.31 S -0.04 J 0.01 J60 0.02 T 0.20
+aVF  R 0.63 S -0.31 J -0.06 J60 0.03 T 0.13
+V1   R 0.14 S -1.30 J 0.02 J60 0.05 T -0.08
+V2   R 0.39 S -3.08 J 0.00 J60 0.27 T 0.81
+V3   R 0.38 S -1.65 J 0.02 J60 0.28 T 0.79
+V4   R 1.41 S -0.73 J -0.05 J60 0.14 T 0.52
+V5   R 2.35 S -0.45 J -0.08 J60 0.05 T 0.38
+V6   R 1.85 S -0.24 J -0.06 J60 0.02 T 0.30
+QT 382 QTc 394.0029160708591
+axis 30.67115572484157
+
+=== Summarized thinking (as returned by the API; the full thinking is not returned) ===
+I'm working out the baseline correction and amplitude measurements to calculate the Sokolow-Lyon index, 
+  combining S wave depth in V1/V2 with R wave height in V5 to check for voltage criteria suggestive of 
+  left ventricular hypertrophy.
+
+Elevated voltage like this isn't unusual in a young man, so I'm also checking QRS duration by finding 
+  onset and offset points, which comes out to roughly 100ms, before moving on to look at the P wave and 
+  PR interval.
+I'm measuring the P wave, PR interval, and QRS duration from the index positions, estimating PR around 
+  150ms and QRS near 120ms. I'm also checking lead morphology across V1, V5/V6, and lead I for terminal 
+  S waves, weighing whether this points toward a conduction pattern like RBBB despite no R' in V1.
+
+I'm noticing terminal S waves across leads I, II, III, and slurring in V6, consistent with an S1S2S3 
+  pattern that could just be a normal variant. I want to nail down QRS onset more precisely by checking 
+  where V1/V2 deviate from baseline, then move on to computing ST segment and QT interval.
+The axis looks like it's around +30-60 degrees with QRS duration roughly 98-110ms. The Sokolow-Lyon 
+  voltage sums (3.65mV and 5.4mV) suggest voltage criteria for LVH, which is common in young males and 
+  often gets labeled as LVH in datasets like PTB-XL even without other supporting findings; otherwise 
+  everything else looks normal, though P wave amplitude is a bit low.
+
+=== Final answer ===
+{
+ "records": [
+  {
+   "record_id": "d0043",
+   "key_findings": "The rhythm is regular sinus at about 64 bpm, with PR about 150 ms, QRS about 100 ms, 
+  QTc about 395 ms, a normal axis near +45 deg and no pathological Q waves or ST-T abnormality. High 
+  precordial voltage (Sokolow-Lyon 3.65 mV = S V1 1.30 + R V5 2.35; S V2 3.1 mV) without strain is 
+  voltage-only LVH, which can be a normal finding in a 25-year-old man.",
+   "p_NORM": 0.5,
+   "p_MI": 0.04,
+   "p_STTC": 0.07,
+   "p_CD": 0.1,
+   "p_HYP": 0.42
+  }
+ ]
+}
+\end{verbatim}
+\end{scriptsize}

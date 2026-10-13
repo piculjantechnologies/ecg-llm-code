@@ -1,0 +1,7 @@
+Highlights
+
+- A general-purpose LLM writes and runs its own code on raw 12-lead ECG signals
+- No ECG-specific training, retrieval or labelled examples; one frozen prompt
+- Macro AUROC 0.886 for five diagnostic superclasses on the PTB-XL test fold
+- Between the best published zero-shot (0.782) and supervised (0.934) models
+- Each answer traces to code and output; the code reproduced its output offline

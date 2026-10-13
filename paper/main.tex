@@ -1,0 +1,37 @@
+% Manuscript for Biomedical Signal Processing and Control (Elsevier; full paper), submitted as LaTeX source; the
+% Supplementary Information is the separate supplement.tex and the highlights the separate highlights.txt. Build both
+% PDFs with: make  (pdflatex + bibtex), or  conda run -n tex make  (Tectonic).
+%
+% Order: title page (lettered affiliations with postal addresses, corresponding author's e-mail), abstract (< 250
+% words, one paragraph: motivation and aim, methods, results, conclusion), keywords (1 to 7), numbered sections
+% Introduction, Methods (ending with an ethics subsection), Results, Discussion; then Data availability, Code
+% availability, CRediT authorship contribution statement, Declaration of competing interest, Funding, References.
+\documentclass[11pt]{article}
+\newcommand{\ExternalDocument}{supplement}
+\input{preamble}
+
+\title{\PaperTitle}
+\author{Neven Pi\v{c}uljan\textsuperscript{a,}$^{*}$ and Alan Jovi\'c\textsuperscript{b}\\[0.5ex]
+  \textsuperscript{a}Pi\v{c}uljan Technologies, Dobri dol 41, 10000 Zagreb, Croatia\\
+  \textsuperscript{b}University of Zagreb Faculty of Electrical Engineering and Computing,\\
+  Unska 3, 10000 Zagreb, Croatia\\[0.5ex]
+  $^{*}$Corresponding author: Neven Pi\v{c}uljan, \texttt{neven@piculjantechnologies.ai}}
+\date{}
+
+\setcounter{secnumdepth}{2}  % the journal asks for numbered sections (1, 1.1)
+\begin{document}
+\maketitle
+\linenumbers
+
+\input{sections/00_abstract}
+\input{sections/01_introduction}
+\input{sections/04_methods}
+\input{sections/02_results}
+\input{sections/03_discussion}
+\input{sections/05_statements}
+\input{sections/06_endmatter}
+
+\bibliographystyle{unsrtnat}
+\bibliography{refs}
+
+\end{document}

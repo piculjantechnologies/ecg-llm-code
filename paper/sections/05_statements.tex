@@ -1,0 +1,18 @@
+% End matter after the Discussion, in the journal's order: Data availability and Code availability (the
+% other end matter is in 06_endmatter).
+
+\section*{Data availability}
+PTB-XL 1.0.3~\citep{Wagner2022physionet} is available from PhysioNet~\citep{Goldberger2000,Pollard2026}
+(\url{https://doi.org/10.13026/kfzx-aw45}) under the Creative Commons Attribution 4.0 International License. The
+derived data of this study, the complete run folders of the test run and of all development runs, are attached as an
+archive to release v1.0 of the project repository (Code availability): for every request, the request and the result, with the complete sandbox transcript (the code the model ran
+and its printed output), the summarized reasoning, the answer, token counts and cost; per-record predictions; the
+mapping from anonymous identifiers to PTB-XL identifiers; and usage summaries, batch logs and run manifests.
+
+\section*{Code availability}
+Code, prompts and the scripts that produce all tables, figures and results in this paper are
+publicly available at \url{https://github.com/piculjantechnologies/ecg-llm-code} under the MIT licence;
+release v1.0 is the version described here. The analysis
+scripts in \texttt{analysis/} were written after the test run; the pre-specified endpoints are computed with the frozen
+evaluation code. All API calls are isolated in one module (\texttt{ecgcode/api.py}); every other step, including
+evaluation, runs offline.

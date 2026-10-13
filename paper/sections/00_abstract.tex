@@ -1,0 +1,22 @@
+% Abstract: one paragraph, no subheadings, ordered motivation and aim, methods, results, conclusion; at most 250
+% words (counted on the rendered text).
+\begin{abstract}
+\noindent General-purpose large language models (LLMs) can write and run code, but whether they can use it to classify
+raw electrocardiograms (ECGs) without ECG-specific training has, to our knowledge, not been evaluated. We gave one
+such LLM (\ModelID) a Python sandbox and, for each raw 12-lead PTB-XL recording, a file with the signal,
+the patient's age and sex, and a prompt. The prompt asked the model to filter the signal, form median beats and print
+ECG measurements, then apply listed diagnostic criteria and give a probability for each of the five diagnostic
+superclasses; it contained no labelled examples. The prompt was developed on the validation fold and frozen. On the
+benchmark test fold ($n{=}\NTest$), the model wrote and ran code \CodeRunsMin--\CodeRunsMax{} times per record
+(\PHSandboxCodeRunsTotal{} code runs). The macro area under the receiver operating characteristic curve was
+\MainAUROC{} (95\% CI \MainAUROCLow--\MainAUROCHigh), compared with \AgeSexAUROC{} for a logistic regression using
+only age and sex. On the same benchmark, the best published supervised and zero-shot ECG--language models reach
+\BestPublishedAUROC{} and \BestZeroShotAUROC, respectively. A post hoc analysis of the transcripts suggested that most
+ECG intervals and axes the model stated were read by the model from median-beat samples its code printed, not
+computed. Run again offline, the model's code reproduced the sandbox's output, up to rounding and other trivial
+differences. A general-purpose LLM writing its own code thus scored between published zero-shot and supervised models,
+and every answer can be traced to the code, its output and the measurements the model stated.
+\end{abstract}
+
+\noindent\textbf{Keywords:} electrocardiography; large language models; code generation; PTB-XL; zero-shot
+classification; interpretability

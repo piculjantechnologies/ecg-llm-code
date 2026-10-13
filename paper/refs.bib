@@ -1,0 +1,782 @@
+% Bibliography (unsrtnat). Entries were checked against DOI, Crossref, DataCite, PubMed, arXiv, publisher and PhysioNet
+% records between 2026-09-26 and 2026-10-01; web pages (type misc) give their access date in the note.
+% Macro AUROC values quoted from other work are traced to a table in the cited paper in
+% benchmarks/ptbxl_superdiagnostic_published.csv (column "source").
+% Preprint entries (type misc) carry a howpublished field with the arXiv or medRxiv URL, because unsrtnat ignores eprint fields.
+% unsrtnat also ignores the doi field of type misc, so a DOI that should print goes in the url field.
+% Comments must not contain the at sign: BibTeX reads it as the start of an entry.
+
+% ---------------------------------------------------------------- data, benchmark, methods
+@article{Strodthoff2021,
+  author    = {Nils Strodthoff and Patrick Wagner and Tobias Schaeffter and Wojciech Samek},
+  title     = {Deep Learning for {ECG} Analysis: Benchmarks and Insights from {PTB}-{XL}},
+  journal   = {{IEEE} Journal of Biomedical and Health Informatics},
+  year      = {2021}, volume = {25}, number = {5}, pages = {1519--1528},
+  doi       = {10.1109/jbhi.2020.3022989}
+}
+
+@article{Wagner2020,
+  author    = {Wagner, Patrick and Strodthoff, Nils and Bousseljot, Ralf-Dieter and Kreiseler, Dieter and
+               Lunze, Fatima I. and Samek, Wojciech and Schaeffter, Tobias},
+  title     = {{PTB-XL}, a large publicly available electrocardiography dataset},
+  journal   = {Scientific Data}, volume = {7}, number = {1}, pages = {154}, year = {2020},
+  doi       = {10.1038/s41597-020-0495-6}
+}
+
+% Citation as given on the PhysioNet page (published 9 November 2022); the DOI resolves to
+% https://physionet.org/content/ptb-xl/1.0.3/.
+@misc{Wagner2022physionet,
+  author    = {Wagner, Patrick and Strodthoff, Nils and Bousseljot, Ralf-Dieter and Samek, Wojciech and Schaeffter, Tobias},
+  title     = {{PTB-XL}, a large publicly available electrocardiography dataset (version 1.0.3)},
+  howpublished = {PhysioNet}, year = {2022},
+  note      = {RRID:SCR\_007345. Creative Commons Attribution 4.0 International License},
+  doi       = {10.13026/kfzx-aw45}, url = {https://doi.org/10.13026/kfzx-aw45}
+}
+
+% Claude API documentation pages; URLs are the canonical ones (the models page moved from /about-claude/models/overview).
+@misc{anthropic2026models,
+  author    = {{Anthropic}},
+  title     = {Models overview},
+  year      = {2026},
+  howpublished = {Claude API documentation, \url{https://platform.claude.com/docs/en/models/overview}},
+  note      = {Accessed 1 October 2026}
+}
+
+@misc{anthropic2026pricing,
+  author    = {{Anthropic}},
+  title     = {Pricing},
+  year      = {2026},
+  howpublished = {Claude API documentation, \url{https://platform.claude.com/docs/en/about-claude/pricing}},
+  note      = {Accessed 1 October 2026}
+}
+
+@misc{anthropic2026codeexec,
+  author    = {{Anthropic}},
+  title     = {Code execution tool},
+  year      = {2026},
+  howpublished = {Claude API documentation,
+                  \url{https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool}},
+  note      = {Accessed 1 October 2026}
+}
+
+@article{Goldberger2000,
+  author    = {Goldberger, Ary L. and Amaral, Luis A. N. and Glass, Leon and Hausdorff, Jeffrey M. and
+               Ivanov, Plamen Ch. and Mark, Roger G. and Mietus, Joseph E. and Moody, George B. and
+               Peng, Chung-Kang and Stanley, H. Eugene},
+  title     = {{PhysioBank}, {PhysioToolkit}, and {PhysioNet}: Components of a New Research Resource for
+               Complex Physiologic Signals},
+  journal   = {Circulation}, volume = {101}, number = {23}, pages = {e215--e220}, year = {2000},
+  doi       = {10.1161/01.CIR.101.23.e215}
+}
+
+% PhysioNet's page (2026) asks for this as the standard PhysioNet citation.
+@article{Pollard2026,
+  author    = {Pollard, Tom and Moody, Benjamin E. and Lehman, Li-wei H. and Gow, Brian J. and Fernandes, Chrystinne and
+               Xie, Chen and Johnson, Alistair and Mark, Roger G. and Heldt, Thomas},
+  title     = {{PhysioNet} as a global platform for biomedical research},
+  journal   = {Nature Health}, volume = {1}, number = {8}, pages = {792--795}, year = {2026},
+  doi       = {10.1038/s44360-026-00096-z}
+}
+
+@article{Strodthoff2023ptbxlplus,
+  author    = {Strodthoff, Nils and Mehari, Temesgen and Nagel, Claudia and Aston, Philip J. and Sundar, Ashish and
+               Graff, Claus and Kanters, J{\o}rgen K. and Haverkamp, Wilhelm and D{\"o}ssel, Olaf and Loewe, Axel and
+               B{\"a}r, Markus and Schaeffter, Tobias},
+  title     = {{PTB-XL+}, a comprehensive electrocardiographic feature dataset},
+  journal   = {Scientific Data}, volume = {10}, number = {1}, pages = {279}, year = {2023},
+  doi       = {10.1038/s41597-023-02153-8}
+}
+
+@article{PanTompkins1985,
+  author    = {Pan, Jiapu and Tompkins, Willis J.},
+  title     = {A Real-Time {QRS} Detection Algorithm},
+  journal   = {IEEE Transactions on Biomedical Engineering}, volume = {BME-32}, number = {3}, pages = {230--236},
+  year      = {1985}, doi = {10.1109/TBME.1985.325532}
+}
+
+@article{Sokolow1949,
+  author    = {Sokolow, Maurice and Lyon, Thomas P.},
+  title     = {The ventricular complex in left ventricular hypertrophy as obtained by unipolar precordial and limb leads},
+  journal   = {American Heart Journal}, volume = {37}, number = {2}, pages = {161--186}, year = {1949},
+  doi       = {10.1016/0002-8703(49)90562-1}
+}
+
+% Cornell voltage: criteria developed in Casale 1985; the 2.8/2.0 mV sex-specific thresholds and the
+% name appear in Casale 1987. Cite both when using the 2.8/2.0 mV thresholds.
+@article{Casale1985,
+  author    = {Casale, Paul N. and Devereux, Richard B. and Kligfield, Paul and Eisenberg, Richard R. and
+               Miller, David H. and Chaudhary, Banvir S. and Phillips, Malcolm C.},
+  title     = {Electrocardiographic detection of left ventricular hypertrophy: development and prospective
+               validation of improved criteria},
+  journal   = {Journal of the American College of Cardiology}, volume = {6}, number = {3}, pages = {572--580},
+  year      = {1985}, doi = {10.1016/S0735-1097(85)80115-7}
+}
+
+% Crossref lists initials only; given names of all authors could not be confirmed, so initials are used.
+@article{Casale1987,
+  author    = {Casale, P. N. and Devereux, R. B. and Alonso, D. R. and Campo, E. and Kligfield, P.},
+  title     = {Improved sex-specific criteria of left ventricular hypertrophy for clinical and computer
+               interpretation of electrocardiograms: validation with autopsy findings},
+  journal   = {Circulation}, volume = {75}, number = {3}, pages = {565--572}, year = {1987},
+  doi       = {10.1161/01.CIR.75.3.565}
+}
+
+@book{Efron1993,
+  author    = {Efron, Bradley and Tibshirani, Robert J.},
+  title     = {An Introduction to the Bootstrap},
+  publisher = {Chapman \& Hall}, address = {New York}, year = {1993},
+  series    = {Monographs on Statistics and Applied Probability}, volume = {57}, isbn = {0-412-04231-2}
+}
+
+% ---------------------------------------------------------------- ECG-language pretraining, zero-shot
+@inproceedings{liu2024merl,
+  author    = {Liu, Che and Wan, Zhongwei and Ouyang, Cheng and Shah, Anand and Bai, Wenjia and Arcucci, Rossella},
+  title     = {Zero-Shot {ECG} Classification with Multimodal Learning and Test-time Clinical Knowledge Enhancement},
+  booktitle = {Proceedings of the 41st International Conference on Machine Learning},
+  series    = {PMLR}, volume = {235}, pages = {31949--31963}, year = {2024}, note = {arXiv:2403.06659}
+}
+
+@inproceedings{wang2025melp,
+  author    = {Wang, Fuying and Xu, Jiacheng and Yu, Lequan},
+  title     = {From Token to Rhythm: A Multi-Scale Approach for {ECG}-Language Pretraining},
+  booktitle = {Proceedings of the 42nd International Conference on Machine Learning},
+  series    = {PMLR}, volume = {267}, pages = {65059--65074}, year = {2025}
+}
+
+@inproceedings{pham2025dbeta,
+  author    = {Pham, Hung Manh and Saeed, Aaqib and Ma, Dong},
+  title     = {Boosting Masked {ECG}-Text Auto-Encoders as Discriminative Learners},
+  booktitle = {Proceedings of the 42nd International Conference on Machine Learning},
+  series    = {PMLR}, volume = {267}, pages = {49277--49291}, year = {2025}
+}
+
+@inproceedings{cai2025supreme,
+  author    = {Cai, Mingsheng and Jiang, Jiuming and Huang, Wenhao and Liu, Che and Arcucci, Rossella},
+  title     = {{SuPreME}: A Supervised Pre-training Framework for Multimodal {ECG} Representation Learning},
+  booktitle = {Findings of the Association for Computational Linguistics: EMNLP 2025},
+  pages     = {11817--11844}, year = {2025}, doi = {10.18653/v1/2025.findings-emnlp.633}
+}
+
+@inproceedings{li2024mets,
+  author    = {Li, Jun and Liu, Che and Cheng, Sibo and Arcucci, Rossella and Hong, Shenda},
+  title     = {Frozen Language Model Helps {ECG} Zero-Shot Learning},
+  booktitle = {Medical Imaging with Deep Learning}, series = {PMLR}, volume = {227}, pages = {402--415},
+  year      = {2024}, note = {MIDL 2023; arXiv:2303.12311}
+}
+
+@inproceedings{liu2024etp,
+  author    = {Liu, Che and Wan, Zhongwei and Cheng, Sibo and Zhang, Mi and Arcucci, Rossella},
+  title     = {{ETP}: Learning Transferable {ECG} Representations via {ECG}-Text Pre-Training},
+  booktitle = {IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+  pages     = {8230--8234}, year = {2024}, doi = {10.1109/ICASSP48485.2024.10446742}
+}
+
+@article{tang2026zeta,
+  author    = {Tang, Jialu and Pham, Hung Manh and De Lathauwer, Ignace and Schipper, Henk S. and Lu, Yuan and
+               Ma, Dong and Saeed, Aaqib},
+  title     = {Interpretable multimodal zero shot {ECG} diagnosis via structured clinical knowledge alignment},
+  journal   = {npj Cardiovascular Health}, volume = {3}, pages = {1}, year = {2026},
+  doi       = {10.1038/s44325-025-00099-x}
+}
+
+% ---------------------------------------------------------------- multimodal LLMs for ECG
+% Version of record (Crossref, published 2026-03-16). The PTB-XL values quoted in the paper (and in the
+% benchmarks CSV) are from the preprint, arXiv:2410.19008v1, Table 3: PULSE 0.824; GPT-4o 0.556, Claude 3.5 Sonnet
+% 0.540, Gemini 1.5 Pro 0.507 on 2,082 records. The published Table 1 gives PULSE 0.829 (others unchanged).
+@article{liu2024teach,
+  author    = {Liu, Ruoqi and Bai, Yuelin and Yue, Xiang and Zhang, Ping},
+  title     = {Teaching multimodal {LLMs} to comprehend 12-lead electrocardiographic images},
+  journal   = {npj Digital Medicine}, volume = {9}, pages = {349}, year = {2026},
+  doi       = {10.1038/s41746-026-02551-3}
+}
+
+% NeurIPS 2025. Pages as registered for the DOI (Crossref and the DOI landing page); the BibTeX on the NeurIPS
+% proceedings site gives 94421--94455 for the same paper. The quoted value (0.834) is in Table 2 of the proceedings
+% version and of arXiv:2503.06073 v1 and v2.
+@inproceedings{lan2025gem,
+  author    = {Lan, Xiang and Wu, Feng and He, Kai and Zhao, Qinghao and Hong, Shenda and Feng, Mengling},
+  title     = {{GEM}: Empowering {MLLM} for Grounded {ECG} Understanding with Time Series and Images},
+  booktitle = {Advances in Neural Information Processing Systems}, volume = {38}, pages = {104720--104754},
+  year      = {2025}, doi = {10.52202/085713-3158}
+}
+
+% ICML 2026 according to the arXiv v3 comment; PMLR had not published the ICML 2026 volume on 1 October 2026.
+@inproceedings{jin2026ecgr1,
+  author    = {Jin, Jiarui and Wang, Haoyu and Wu, Xingliang and Fang, Xiaocheng and Lan, Xiang and Wang, Zihan and
+               Zhang, Deyun and Liu, Bo and Zhang, Yingying and Wu, Xian and Li, Hongyan and Hong, Shenda},
+  title     = {{ECG-R1}: Protocol-Guided and Modality-Agnostic {MLLM} for Reliable {ECG} Interpretation},
+  booktitle = {International Conference on Machine Learning}, year = {2026}, note = {arXiv:2602.04279}
+}
+
+% Volume, issue and pages from the AAAI proceedings page and Crossref.
+@inproceedings{li2026anyecg,
+  author    = {Li, Haitao and Li, Ziyu and Mao, Yiheng and Liu, Ziyi and Sun, Zhoujian and Huang, Zhengxing},
+  title     = {{anyECG-chat}: A Generalist {ECG-MLLM} for Flexible {ECG} Input and Multi-Task Understanding},
+  booktitle = {Proceedings of the AAAI Conference on Artificial Intelligence}, volume = {40}, number = {1},
+  pages     = {597--605}, year = {2026}, doi = {10.1609/aaai.v40i1.37024}
+}
+
+@inproceedings{zhao2025ecgchat,
+  author    = {Zhao, Yubao and Kang, Jiaju and Zhang, Tian and Han, Puyu and Chen, Tong},
+  title     = {{ECG-Chat}: A Large {ECG}-Language Model for Cardiac Disease Diagnosis},
+  booktitle = {IEEE International Conference on Multimedia and Expo (ICME)}, pages = {1--6}, year = {2025},
+  doi       = {10.1109/ICME59968.2025.11209476}
+}
+
+@inproceedings{wan2025meit,
+  author    = {Wan, Zhongwei and Liu, Che and Wang, Xin and Tao, Chaofan and Shen, Hui and Xiong, Jing and
+               Arcucci, Rossella and Yao, Huaxiu and Zhang, Mi},
+  title     = {{MEIT}: Multimodal Electrocardiogram Instruction Tuning on Large Language Models for Report Generation},
+  booktitle = {Findings of the Association for Computational Linguistics: ACL 2025},
+  pages     = {14510--14527}, year = {2025}, doi = {10.18653/v1/2025.findings-acl.749}
+}
+
+% PMLR 298 (MLHC 2025); the PMLR index gives no page range.
+@inproceedings{han2025ecgbyte,
+  author    = {Han, William and Duan, Chaojing and Rosenberg, Michael A. and Liu, Emerson and Zhao, Ding},
+  title     = {{ECG-Byte}: A Tokenizer for End-to-End Generative Electrocardiogram Language Modeling},
+  booktitle = {Machine Learning for Healthcare Conference}, series = {PMLR}, volume = {298}, year = {2025},
+  note      = {arXiv:2412.14373}
+}
+
+@misc{han2025signal,
+  author    = {Han, William and Duan, Chaojing and Cen, Zhepeng and Yao, Yihang and Song, Xiaoyu and Mhaskar, Atharva and
+               Leong, Dylan and Rosenberg, Michael A. and Liu, Emerson and Zhao, Ding},
+  title     = {Signal, Image, or Symbolic: Exploring the Best Input Representation for Electrocardiogram-Language
+               Models Through a Unified Framework},
+  year      = {2025}, eprint = {2505.18847}, archivePrefix = {arXiv},
+  howpublished = {Preprint at \url{https://arxiv.org/abs/2505.18847}}
+}
+
+% PMLR 340 (MLHC 2026, published 8 September 2026); pages from the PMLR index.
+@inproceedings{han2026elf,
+  author    = {Han, William and Chen, Tony and Duan, Chaojing and Song, Xiaoyu and Yao, Yihang and Yang, Yuzhe and
+               Rosenberg, Michael A. and Liu, Emerson and Zhao, Ding},
+  title     = {{ELF}: A Family of Encoder-Free {ECG}-Language Models},
+  booktitle = {Proceedings of the 11th Machine Learning for Healthcare Conference}, series = {PMLR}, volume = {340},
+  pages     = {550--583}, year = {2026}, url = {https://proceedings.mlr.press/v340/han26a.html}
+}
+
+@inproceedings{oh2023ecgqa,
+  author    = {Oh, Jungwoo and Lee, Gyubok and Bae, Seongsu and Kwon, Joon-myoung and Choi, Edward},
+  title     = {{ECG-QA}: A Comprehensive Question Answering Dataset Combined With Electrocardiogram},
+  booktitle = {Advances in Neural Information Processing Systems}, volume = {36}, pages = {66277--66288},
+  year      = {2023}, doi = {10.52202/075280-2893}
+}
+
+% ---------------------------------------------------------------- general-purpose LLMs reading ECGs
+@inproceedings{yu2023zeroshot,
+  author    = {Yu, Han and Guo, Peikun and Sano, Akane},
+  title     = {Zero-Shot {ECG} Diagnosis with Large Language Models and Retrieval-Augmented Generation},
+  booktitle = {Proceedings of the 3rd Machine Learning for Health Symposium}, series = {PMLR},
+  volume    = {225}, pages = {650--663}, year = {2023}, url = {https://proceedings.mlr.press/v225/yu23b.html}
+}
+
+@article{seki2025assessing,
+  author    = {Seki, Tomohisa and Kawazoe, Yoshimasa and Ito, Hiromasa and Akagi, Yu and Takiguchi, Toru and Ohe, Kazuhiko},
+  title     = {Assessing the performance of zero-shot visual question answering in multimodal large language models
+               for 12-lead {ECG} image interpretation},
+  journal   = {Frontiers in Cardiovascular Medicine}, volume = {12}, pages = {1458289}, year = {2025},
+  doi       = {10.3389/fcvm.2025.1458289}
+}
+
+@article{lee2025comparative,
+  author    = {Lee, Haemin and Yoo, Sooyoung and Kim, Joonghee and Cho, Youngjin and Suh, Dongbum and Lee, Keehyuck},
+  title     = {Comparative Diagnostic Performance of a Multimodal Large Language Model Versus a Dedicated
+               Electrocardiogram {AI} in Detecting Myocardial Infarction From Electrocardiogram Images:
+               Comparative Study},
+  journal   = {JMIR AI}, volume = {4}, pages = {e75910}, year = {2025}, doi = {10.2196/75910}
+}
+
+@article{engelstein2025effectiveness,
+  author    = {Engelstein, Haya and Ramon-Gonen, Roni and Sabbag, Avi and Klang, Eyal and Sudri, Karin and
+               Cohen-Shelly, Michal and Barbash, Israel},
+  title     = {Effectiveness of the {GPT-4o} Model in Interpreting Electrocardiogram Images for Cardiac Diagnostics:
+               Diagnostic Accuracy Study},
+  journal   = {JMIR AI}, volume = {4}, pages = {e74426}, year = {2025}, doi = {10.2196/74426}
+}
+
+@article{zhu2024multimodal,
+  author    = {Zhu, Lingxuan and Mou, Weiming and Wu, Keren and Lai, Yancheng and Lin, Anqi and Yang, Tao and
+               Zhang, Jian and Luo, Peng},
+  title     = {Multimodal {ChatGPT-4V} for Electrocardiogram Interpretation: Promise and Limitations},
+  journal   = {Journal of Medical Internet Research}, volume = {26}, pages = {e54607}, year = {2024},
+  doi       = {10.2196/54607}
+}
+
+@article{soubh2026performance,
+  author    = {Soubh, Nibras and Rasenack, Eva and Haarmann, Helge and Wiedmann, Felix and Zabel, Markus and
+               Schmidt, Constanze and Suliman, Rayan and Bergau, Leonard},
+  title     = {Performance of Vision-Enabled Large Language Models in Image-Based Electrocardiogram Interpretation:
+               Exploratory Evaluation},
+  journal   = {Journal of Medical Internet Research}, volume = {28}, pages = {e86692}, year = {2026},
+  doi       = {10.2196/86692}
+}
+
+% ---------------------------------------------------------------- LLMs and numeric time series
+@inproceedings{Gruver2023,
+  author    = {Gruver, Nate and Finzi, Marc and Qiu, Shikai and Wilson, Andrew Gordon},
+  title     = {Large Language Models Are Zero-Shot Time Series Forecasters},
+  booktitle = {Advances in Neural Information Processing Systems}, volume = {36}, pages = {19622--19635},
+  year      = {2023}, doi = {10.52202/075280-0861}
+}
+
+% Author list from arXiv v2 (not compared with the OpenReview record).
+@inproceedings{jin2024timellm,
+  author    = {Jin, Ming and Wang, Shiyu and Ma, Lintao and Chu, Zhixuan and Zhang, James Y. and Shi, Xiaoming and
+               Chen, Pin-Yu and Liang, Yuxuan and Li, Yuan-Fang and Pan, Shirui and Wen, Qingsong},
+  title     = {Time-{LLM}: Time Series Forecasting by Reprogramming Large Language Models},
+  booktitle = {International Conference on Learning Representations}, year = {2024},
+  url       = {https://openreview.net/forum?id=Unb5CVPtae}
+}
+
+@inproceedings{tan2024language,
+  author    = {Tan, Mingtian and Merrill, Mike A. and Gupta, Vinayak and Althoff, Tim and Hartvigsen, Thomas},
+  title     = {Are Language Models Actually Useful for Time Series Forecasting?},
+  booktitle = {Advances in Neural Information Processing Systems}, volume = {37}, pages = {60162--60191},
+  year      = {2024}, doi = {10.52202/079017-1922}
+}
+
+@inproceedings{merrill2024language,
+  author    = {Merrill, Mike A. and Tan, Mingtian and Gupta, Vinayak and Hartvigsen, Thomas and Althoff, Tim},
+  title     = {Language Models Still Struggle to Zero-shot Reason about Time Series},
+  booktitle = {Findings of the Association for Computational Linguistics: EMNLP 2024},
+  pages     = {3512--3533}, year = {2024}, doi = {10.18653/v1/2024.findings-emnlp.201}
+}
+
+@inproceedings{liu2025picture,
+  author    = {Liu, Haoxin and Liu, Chenghao and Prakash, B. Aditya},
+  title     = {A Picture is Worth A Thousand Numbers: Enabling {LLM}s Reason about Time Series via Visualization},
+  booktitle = {Proceedings of the 2025 Conference of the Nations of the Americas Chapter of the Association for
+               Computational Linguistics: Human Language Technologies (Volume 1: Long Papers)},
+  pages     = {7486--7518}, year = {2025}, doi = {10.18653/v1/2025.naacl-long.383}
+}
+
+@inproceedings{langer2025opentslm,
+  author    = {Langer, Patrick and Kaar, Thomas and Rosenblattl, Max and Xu, Maxwell A. and Chow, Winnie and
+               Maritsch, Martin and Jakob, Robert and Wang, Ning and Liu, Juncheng and Verma, Aradhana and Han, Brian and
+               Kim, Daniel Seung and Chubb, Henry and Ceresnak, Scott and Zahedivash, Aydin and
+               Sandhu, Alexander Tarlochan Singh and Rodriguez, Fatima and McDuff, Daniel and Fleisch, Elgar and
+               Aalami, Oliver and Barata, Filipe and Schmiedmayer, Paul},
+  title     = {{OpenTSLM}: Time-Series Language Models for Reasoning over Multivariate Medical Text- and Time-Series Data},
+  booktitle = {Proceedings of the 43rd International Conference on Machine Learning},
+  series    = {PMLR}, volume = {306}, pages = {62642--62676}, year = {2026}
+}
+
+@inproceedings{xu2024penetrative,
+  author    = {Xu, Huatao and Han, Liying and Yang, Qirui and Li, Mo and Srivastava, Mani},
+  title     = {Penetrative {AI}: Making {LLM}s Comprehend the Physical World},
+  booktitle = {Findings of the Association for Computational Linguistics: ACL 2024},
+  pages     = {7324--7341}, year = {2024}, doi = {10.18653/v1/2024.findings-acl.437}
+}
+
+@misc{liu2023fewshot,
+  author    = {Liu, Xin and McDuff, Daniel and Kovacs, Geza and Galatzer-Levy, Isaac and Sunshine, Jacob and
+               Zhan, Jiening and Poh, Ming-Zher and Liao, Shun and Di Achille, Paolo and Patel, Shwetak},
+  title     = {Large Language Models are Few-Shot Health Learners},
+  year      = {2023}, eprint = {2305.15525}, archivePrefix = {arXiv},
+  howpublished = {Preprint at \url{https://arxiv.org/abs/2305.15525}}
+}
+
+@inproceedings{ji2024hargpt,
+  author    = {Ji, Sijie and Zheng, Xinzhe and Wu, Chenshu},
+  title     = {{HARGPT}: Are {LLMs} Zero-Shot Human Activity Recognizers?},
+  booktitle = {IEEE International Workshop on Foundation Models for Cyber-Physical Systems \& Internet of Things (FMSys)},
+  pages     = {38--43}, year = {2024}, doi = {10.1109/FMSys62467.2024.00011}
+}
+
+@inproceedings{kim2024healthllm,
+  author    = {Kim, Yubin and Xu, Xuhai and McDuff, Daniel and Breazeal, Cynthia and Park, Hae Won},
+  title     = {Health-{LLM}: Large Language Models for Health Prediction via Wearable Sensor Data},
+  booktitle = {Proceedings of the Fifth Conference on Health, Inference, and Learning}, series = {PMLR},
+  volume    = {248}, pages = {522--539}, year = {2024}
+}
+
+@inproceedings{wang2025tabletime,
+  author    = {Wang, Jiahao and Cheng, Mingyue and Mao, Qingyang and Zhou, Yitong and Wang, Daoyu and Liu, Qi and
+               Xu, Feiyang and Li, Xin},
+  title     = {{TableTime}: Reformulating Time Series Classification as Training-Free Table Understanding with
+               Large Language Models},
+  booktitle = {Proceedings of the 34th ACM International Conference on Information and Knowledge Management},
+  pages     = {3009--3019}, year = {2025}, doi = {10.1145/3746252.3761056}
+}
+
+@article{spathis2024first,
+  author    = {Spathis, Dimitris and Kawsar, Fahim},
+  title     = {The first step is the hardest: pitfalls of representing and tokenizing temporal data for large language models},
+  journal   = {Journal of the American Medical Informatics Association}, volume = {31}, number = {9},
+  pages     = {2151--2158}, year = {2024}, doi = {10.1093/jamia/ocae090}
+}
+
+@misc{singh2024tokenization,
+  author    = {Singh, Aaditya K. and Strouse, DJ},
+  title     = {Tokenization counts: the impact of tokenization on arithmetic in frontier {LLM}s},
+  year      = {2024}, eprint = {2402.14903}, archivePrefix = {arXiv},
+  howpublished = {Preprint at \url{https://arxiv.org/abs/2402.14903}}
+}
+
+@misc{daswani2024plots,
+  author    = {Daswani, Mayank and Bellaiche, Mathias M. J. and Wilson, Marc and Ivanov, Desislav and Papkov, Mikhail and
+               Schnider, Eva and Tang, Jing and Lamerigts, Kay and Botea, Gabriela and Sanchez, Michael A. and
+               Patel, Yojan and Prabhakara, Shruthi and Shetty, Shravya and Telang, Umesh},
+  title     = {Plots Unlock Time-Series Understanding in Multimodal Models},
+  year      = {2024}, eprint = {2410.02637}, archivePrefix = {arXiv},
+  howpublished = {Preprint at \url{https://arxiv.org/abs/2410.02637}}
+}
+
+% ---------------------------------------------------------------- supervised / pretrained PTB-XL results
+@inproceedings{shi2023multires,
+  author    = {Shi, Jiaxin and Wang, Ke Alexander and Fox, Emily B.},
+  title     = {Sequence Modeling with Multiresolution Convolutional Memory},
+  booktitle = {Proceedings of the 40th International Conference on Machine Learning}, series = {PMLR},
+  volume    = {202}, pages = {31312--31327}, year = {2023}
+}
+
+@inproceedings{zhang2023spacetime,
+  author    = {Zhang, Michael and Saab, Khaled K. and Poli, Michael and Dao, Tri and Goel, Karan and R{\'e}, Christopher},
+  title     = {Effectively Modeling Time Series with Simple Discrete State Spaces},
+  booktitle = {International Conference on Learning Representations}, year = {2023}, note = {arXiv:2303.09489}
+}
+
+@inproceedings{behrouz2024chimera,
+  author    = {Behrouz, Ali and Santacatterina, Michele and Zabih, Ramin},
+  title     = {Chimera: Effectively Modeling Multivariate Time Series with 2-Dimensional State Space Models},
+  booktitle = {Advances in Neural Information Processing Systems}, volume = {37}, pages = {119886--119918},
+  year      = {2024}, doi = {10.52202/079017-3810}
+}
+
+@inproceedings{karami2025msssm,
+  author    = {Karami, Mahdi and Behrouz, Ali and Zhong, Peilin and Pascanu, Razvan and Mirrokni, Vahab},
+  title     = {{MS-SSM}: A Multi-Scale State Space Model for Efficient Sequence Modeling},
+  booktitle = {Conference on Language Modeling (COLM)}, year = {2025}, note = {arXiv:2512.23824}
+}
+
+@inproceedings{almasud2026benchmarking,
+  author    = {Al-Masud, M. A. and Lopez Alcaraz, Juan Miguel and Strodthoff, Nils},
+  title     = {Benchmarking {ECG} {FMs}: A Reality Check Across Clinical Tasks},
+  booktitle = {International Conference on Learning Representations}, year = {2026}, note = {arXiv:2509.25095},
+  url       = {https://openreview.net/forum?id=xXRqWpt3Xr}
+}
+
+@misc{almasud2026pretraining,
+  author    = {Al-Masud, M. A. and Strodthoff, Nils},
+  title     = {Pretraining Strategies and Scaling for {ECG} Foundation Models: A Systematic Study},
+  year      = {2026}, eprint = {2605.12241}, archivePrefix = {arXiv},
+  howpublished = {Preprint at \url{https://arxiv.org/abs/2605.12241}}
+}
+
+% Journal version (article in press, published 14 September 2026; no volume or article number yet). The quoted
+% value (0.928, xECG fine-tuned, PTB-XL five superclasses, fold 10) is in its Supplementary Table 1 and in
+% Table 2 of arXiv:2509.10151v1.
+@article{lunelli2025benchecg,
+  author    = {Lunelli, Riccardo and Nicolson, Angus and Pr{\"o}ll, Samuel Martin and Reinstadler, Sebastian Johannes and
+               Bauer, Axel and Dlaska, Clemens},
+  title     = {{BenchECG} and {xECG}: a benchmark and baseline for {ECG} foundation models},
+  journal   = {npj Digital Medicine}, year = {2026},
+  doi       = {10.1038/s41746-026-03196-y}
+}
+
+% Journal version (Crossref; PubMed 42442245: 2027 Jan, 205 Pt A, 109334; online 7 July 2026). The quoted value
+% (0.931, ECG-JEPA rb, PTB-XL multi-label, fine-tuned) is in Table 4 of arXiv:2410.08559v5; the journal's own
+% table could not be checked (no open access), hence the note.
+@article{kim2024ecgjepa,
+  author    = {Kim, Sehun},
+  title     = {Learning general representation of 12-lead {ECG} with a joint-embedding predictive architecture},
+  journal   = {Neural Networks}, volume = {205}, pages = {109334}, year = {2027},
+  doi       = {10.1016/j.neunet.2026.109334},
+  note      = {The value quoted here (0.931) is from the preprint, arXiv:2410.08559v5 (2026), Table~4}
+}
+
+% Author names confirmed on Crossref. The quoted value (0.911) was verified in medRxiv v3 (2025-07-31),
+% Suppl. Table 8; v4 could not be retrieved (HTTP 403).
+@misc{coppola2024hubertecg,
+  author    = {Coppola, Edoardo and Savardi, Mattia and Massussi, Mauro and Adamo, Marianna and Metra, Marco and Signoroni, Alberto},
+  title     = {{HuBERT-ECG} as a self-supervised foundation model for broad and scalable cardiac applications},
+  year      = {2024}, doi = {10.1101/2024.11.14.24317328},
+  howpublished = {Preprint at medRxiv \url{https://doi.org/10.1101/2024.11.14.24317328}},
+  note      = {Version~3 (2025)}
+}
+
+@inproceedings{na2024stmem,
+  author    = {Na, Yeongyeon and Park, Minje and Tae, Yunwon and Joo, Sunghoon},
+  title     = {Guiding Masked Representation Learning to Capture Spatio-Temporal Relationship of Electrocardiogram},
+  booktitle = {International Conference on Learning Representations}, year = {2024}, note = {arXiv:2402.09450}
+}
+
+% ---------------------------------------------------------------- program-aided LLMs, tool use, LLM agents for health data
+@inproceedings{gao2023pal,
+  author    = {Gao, Luyu and Madaan, Aman and Zhou, Shuyan and Alon, Uri and Liu, Pengfei and Yang, Yiming and Callan, Jamie and Neubig, Graham},
+  title     = {{PAL}: Program-aided Language Models},
+  booktitle = {Proceedings of the 40th International Conference on Machine Learning},
+  series    = {Proceedings of Machine Learning Research},
+  volume    = {202},
+  pages     = {10764--10799},
+  publisher = {PMLR},
+  year      = {2023},
+  url       = {https://proceedings.mlr.press/v202/gao23f.html}
+}
+
+@article{chen2023pot,
+  author  = {Chen, Wenhu and Ma, Xueguang and Wang, Xinyi and Cohen, William W.},
+  title   = {Program of Thoughts Prompting: Disentangling Computation from Reasoning for Numerical Reasoning Tasks},
+  journal = {Transactions on Machine Learning Research},
+  year    = {2023},
+  url     = {https://openreview.net/forum?id=YfZ4ZPt8zd}
+}
+
+@inproceedings{schick2023toolformer,
+  author    = {Schick, Timo and Dwivedi-Yu, Jane and Dess{\`i}, Roberto and Raileanu, Roberta and Lomeli, Maria and Hambro, Eric and Zettlemoyer, Luke and Cancedda, Nicola and Scialom, Thomas},
+  title     = {Toolformer: Language Models Can Teach Themselves to Use Tools},
+  booktitle = {Advances in Neural Information Processing Systems},
+  editor    = {Oh, A. and Naumann, T. and Globerson, A. and Saenko, K. and Hardt, M. and Levine, S.},
+  volume    = {36},
+  pages     = {68539--68551},
+  publisher = {Curran Associates, Inc.},
+  year      = {2023},
+  doi       = {10.52202/075280-2997}
+}
+
+@inproceedings{jiang2024followbench,
+  author    = {Jiang, Yuxin and Wang, Yufei and Zeng, Xingshan and Zhong, Wanjun and Li, Liangyou and Mi, Fei and Shang, Lifeng and Jiang, Xin and Liu, Qun and Wang, Wei},
+  title     = {{FollowBench}: A Multi-level Fine-grained Constraints Following Benchmark for Large Language Models},
+  booktitle = {Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)},
+  pages     = {4667--4688},
+  publisher = {Association for Computational Linguistics},
+  year      = {2024},
+  doi       = {10.18653/v1/2024.acl-long.257}
+}
+
+@inproceedings{wang2024codeact,
+  author    = {Wang, Xingyao and Chen, Yangyi and Yuan, Lifan and Zhang, Yizhe and Li, Yunzhu and Peng, Hao and Ji, Heng},
+  title     = {Executable Code Actions Elicit Better {LLM} Agents},
+  booktitle = {Proceedings of the 41st International Conference on Machine Learning},
+  series    = {Proceedings of Machine Learning Research},
+  volume    = {235},
+  pages     = {50208--50232},
+  publisher = {PMLR},
+  year      = {2024},
+  url       = {https://proceedings.mlr.press/v235/wang24h.html}
+}
+
+@article{tayebiarasteh2024automl,
+  author  = {Tayebi Arasteh, Soroosh and Han, Tianyu and Lotfinia, Mahshad and Kuhl, Christiane and Kather, Jakob Nikolas and Truhn, Daniel and Nebelung, Sven},
+  title   = {Large language models streamline automated machine learning for clinical studies},
+  journal = {Nature Communications},
+  volume  = {15},
+  pages   = {1603},
+  year    = {2024},
+  doi     = {10.1038/s41467-024-45879-8}
+}
+
+@article{merrill2026phia,
+  author  = {Merrill, Mike A. and Paruchuri, Akshay and Rezaei, Naghmeh and Kovacs, Geza and Perez, Javier and Liu, Yun and Schenck, Erik and Hammerquist, Nova and Sunshine, Jake and Tailor, Shyam and Ayush, Kumar and Su, Hao-Wei and He, Qian and McLean, Cory Y. and Malhotra, Mark and Patel, Shwetak and Zhan, Jiening and Althoff, Tim and McDuff, Daniel and Liu, Xin},
+  title   = {Transforming wearable data into personal health insights using large language model agents},
+  journal = {Nature Communications},
+  volume  = {17},
+  pages   = {1143},
+  year    = {2026},
+  doi     = {10.1038/s41467-025-67922-y}
+}
+
+% Title as written in the paper (HeaRTS); the arXiv listing writes HEARTS.
+@inproceedings{li2026hearts,
+  author    = {Li, Sirui and Xiao, Shuhan and Joshi, Mihir and Metwally, Ahmed and McDuff, Daniel and Wang, Wei and Yang, Yuzhe},
+  title     = {{HeaRTS}: Benchmarking {LLM} Reasoning on Health Time Series},
+  booktitle = {Proceedings of the 43rd International Conference on Machine Learning},
+  series    = {PMLR}, volume = {306}, pages = {71383--71433}, year = {2026}
+}
+
+@misc{xu2026ecgreasoning,
+  author       = {Xu, Maxwell A. and Haresamudram, Harish and Liu, Catherine W. and Langer, Patrick and Pradeepkumar, Jathurshan and Mao, Wanting and Ferns, Sunita J. and Verma, Aradhana and Sun, Jimeng and Schmiedmayer, Paul and Liu, Xin and McDuff, Daniel and Fox, Emily B. and Rehg, James M.},
+  title        = {How Well Do Multimodal Models Reason on {ECG} Signals?},
+  year         = {2026},
+  howpublished = {Preprint at \url{https://arxiv.org/abs/2603.00312}}
+}
+
+@misc{deng2026recursiveecg,
+  author       = {Deng, Jinliang and Niu, Yiming and Pan, Yibo and Shao, Zhiqi and Luo, Qin and Tong, Yongxin},
+  title        = {Failures Reveal What Metrics Miss: An Evidence-Driven Agent for Recursive Refinement of {ECG} Classifiers},
+  year         = {2026},
+  howpublished = {Preprint at \url{https://arxiv.org/abs/2607.24419}}
+}
+
+@inproceedings{feli2025ppgagent,
+  author    = {Feli, Mohammad and Azimi, Iman and Liljeberg, Pasi and Rahmani, Amir M.},
+  title     = {An {LLM}-Powered Agent for Physiological Data Analysis: A Case Study on {PPG}-based Heart Rate Estimation},
+  booktitle = {2025 47th Annual International Conference of the IEEE Engineering in Medicine and Biology Society (EMBC)},
+  pages     = {1--7},
+  publisher = {IEEE},
+  year      = {2025},
+  doi       = {10.1109/EMBC58623.2025.11254428}
+}
+
+@inproceedings{chung2026ecgagent,
+  author    = {Chung, Hyunseung and Oh, Jungwoo and Kyung, Daeun and Kim, Jiho and Kwon, Yeonsu and Kim, Min-Gyu and Choi, Edward},
+  title     = {{ECG-Agent}: On-Device Tool-Calling Agent for {ECG} Multi-Turn Dialogue},
+  booktitle = {ICASSP 2026 -- 2026 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+  pages     = {8032--8036},
+  publisher = {IEEE},
+  year      = {2026},
+  doi       = {10.1109/ICASSP55912.2026.11464123}
+}
+
+% Authors as on arXiv (v2), except that the arXiv listing spells "Connor Heneghan"; the authors' institutional
+% publication page (research.google) gives "Conor Heneghan".
+@misc{heydari2025pha,
+  author       = {Heydari, A. Ali and Gu, Ken and Srinivas, Vidya and Yu, Hong and Zhang, Zhihan and Zhang, Yuwei and Paruchuri, Akshay and He, Qian and Palangi, Hamid and Hammerquist, Nova and Metwally, Ahmed A. and Winslow, Brent and Kim, Yubin and Ayush, Kumar and Yang, Yuzhe and Narayanswamy, Girish and Xu, Maxwell A. and Garrison, Jake and Lee, Amy Armento and Vafeiadou, Jenny and Graef, Ben and Galatzer-Levy, Isaac R. and Schenck, Erik and Barakat, Andrew and Perez, Javier and Shreibati, Jacqueline and Hernandez, John and Faranesh, Anthony Z. and Prieto, Javier L. and Heneghan, Conor and Liu, Yun and Zhan, Jiening and Malhotra, Mark and Patel, Shwetak and Althoff, Tim and Liu, Xin and McDuff, Daniel and Xu, Xuhai},
+  title        = {The Anatomy of a Personal Health Agent},
+  year         = {2025},
+  howpublished = {Preprint at \url{https://arxiv.org/abs/2508.20148}}
+}
+
+@misc{yu2025alfred,
+  author       = {Yu, Jin and Park, JaeHo and Park, TaeJun and Kim, Gyurin and Lee, JiHyun and Lee, Min Sung and Kwon, Joon-myoung and Son, Jeong Min and Jo, Yong-Yeon},
+  title        = {{ALFRED}: Ask a Large-language model For Reliable {ECG} Diagnosis},
+  year         = {2025},
+  howpublished = {Preprint at \url{https://arxiv.org/abs/2505.03781}}
+}
+
+@misc{gao2026luminaecg,
+  author       = {Gao, Hongxiang and Xu, He-yang and Li, Yuwen and Zhao, Minghui and Cai, Zhipeng and Wang, Xingyao and Yang, Chenxi and Li, Jianqing and Liu, Chengyu},
+  title        = {Diagnosing as Cardiologists Do: {ECG} Agents with Doctor-Grounded Priors for Clinical Reasoning Across Diseases and Populations},
+  year         = {2026},
+  howpublished = {Preprint at \url{https://arxiv.org/abs/2608.09053}}
+}
+
+@misc{ahammad2026ecgimage,
+  author       = {Ahammad, Khalil and Abbott, Derek and Dorraki, Mohsen},
+  title        = {Physiology-Aware {CNN} and Zero-Shot Multimodal {LLMs} for {ECG} Image Classification: A Comparative Study},
+  year         = {2026},
+  howpublished = {Preprint at \url{https://arxiv.org/abs/2606.22889}}
+}
+
+% ---------------------------------------------------------------- ECG standards and computerized interpretation
+% CSE study: nine commercial rule-based interpretation programs against eight cardiologists on 1,220 validated cases.
+@article{willems1991diagnostic,
+  author  = {Willems, Jos L. and Abreu-Lima, Cristina and Arnaud, Pierre and van Bemmel, Jan H. and Brohet, Christian and
+             Degani, Rosanna and Denis, Bernard and Gehring, J{\"u}rgen and Graham, Ian and van Herpen, Gerard and
+             Machado, Hugo and Macfarlane, Peter W. and Michaelis, J{\"o}rg and Moulopoulos, Spyros D. and Rubel, Paul and
+             Zywietz, Christoph},
+  title   = {The diagnostic performance of computer programs for the interpretation of electrocardiograms},
+  journal = {New England Journal of Medicine}, volume = {325}, number = {25}, pages = {1767--1773}, year = {1991},
+  doi     = {10.1056/NEJM199112193252503}
+}
+
+@article{dechazal2004heartbeats,
+  author  = {de Chazal, Philip and O'Dwyer, Maria and Reilly, Richard B.},
+  title   = {Automatic classification of heartbeats using {ECG} morphology and heartbeat interval features},
+  journal = {IEEE Transactions on Biomedical Engineering}, volume = {51}, number = {7}, pages = {1196--1206}, year = {2004},
+  doi     = {10.1109/TBME.2004.827359}
+}
+
+@article{lyon2018computational,
+  author  = {Lyon, Aurore and Minchol{\'e}, Ana and Mart{\'\i}nez, Juan Pablo and Laguna, Pablo and Rodriguez, Blanca},
+  title   = {Computational techniques for {ECG} analysis and interpretation in light of their contribution to medical
+             advances},
+  journal = {Journal of the Royal Society Interface}, volume = {15}, number = {138}, pages = {20170821}, year = {2018},
+  doi     = {10.1098/rsif.2017.0821}
+}
+
+@article{hannun2019cardiologist,
+  author  = {Hannun, Awni Y. and Rajpurkar, Pranav and Haghpanahi, Masoumeh and Tison, Geoffrey H. and Bourn, Codie and
+             Turakhia, Mintu P. and Ng, Andrew Y.},
+  title   = {Cardiologist-level arrhythmia detection and classification in ambulatory electrocardiograms using a deep
+             neural network},
+  journal = {Nature Medicine}, volume = {25}, number = {1}, pages = {65--69}, year = {2019},
+  doi     = {10.1038/s41591-018-0268-3}
+}
+
+@article{ribeiro2020automatic,
+  author  = {Ribeiro, Ant{\^o}nio H. and Ribeiro, Manoel Horta and Paix{\~a}o, Gabriela M. M. and Oliveira, Derick M. and
+             Gomes, Paulo R. and Canazart, J{\'e}ssica A. and Ferreira, Milton P. S. and Andersson, Carl R. and
+             Macfarlane, Peter W. and Meira Jr., Wagner and Sch{\"o}n, Thomas B. and Ribeiro, Antonio Luiz P.},
+  title   = {Automatic diagnosis of the 12-lead {ECG} using a deep neural network},
+  journal = {Nature Communications}, volume = {11}, pages = {1760}, year = {2020},
+  doi     = {10.1038/s41467-020-15432-4}
+}
+
+@article{martinez2004wavelet,
+  author  = {Mart{\'\i}nez, Juan Pablo and Almeida, Rute and Olmos, Salvador and Rocha, Ana Paula and Laguna, Pablo},
+  title   = {A wavelet-based {ECG} delineator: evaluation on standard databases},
+  journal = {IEEE Transactions on Biomedical Engineering}, volume = {51}, number = {4}, pages = {570--581}, year = {2004},
+  doi     = {10.1109/TBME.2003.821031}
+}
+
+% Not in Crossref; citation as given on the challenge page (moody-challenge.physionet.org/2006).
+@inproceedings{moody2006qt,
+  author    = {Moody, George B. and Koch, Hans and Steinhoff, Uwe},
+  title     = {The {PhysioNet}/{Computers in Cardiology} Challenge 2006: {QT} interval measurement},
+  booktitle = {Computers in Cardiology}, volume = {33}, pages = {313--316}, year = {2006}
+}
+
+@article{kligfield2007recommendations,
+  author  = {Kligfield, Paul and Gettes, Leonard S. and Bailey, James J. and Childers, Rory and Deal, Barbara J. and
+             Hancock, E. William and van Herpen, Gerard and Kors, Jan A. and Macfarlane, Peter and Mirvis, David M. and
+             Pahlm, Olle and Rautaharju, Pentti and Wagner, Galen S.},
+  title   = {Recommendations for the standardization and interpretation of the electrocardiogram: part {I}: the
+             electrocardiogram and its technology},
+  journal = {Circulation}, volume = {115}, number = {10}, pages = {1306--1324}, year = {2007},
+  doi     = {10.1161/CIRCULATIONAHA.106.180200}
+}
+
+% Authors as in the publisher's metadata (Crossref); PubMed also lists the other members of the writing group.
+% Pages from PubMed (PMID 19228822). Also published in J Am Coll Cardiol 2009;53(11):976--981.
+@article{surawicz2009recommendations,
+  author  = {Surawicz, Borys and Childers, Rory and Deal, Barbara J. and Gettes, Leonard S.},
+  title   = {{AHA/ACCF/HRS} recommendations for the standardization and interpretation of the electrocardiogram: part
+             {III}: intraventricular conduction disturbances},
+  journal = {Circulation}, volume = {119}, number = {10}, pages = {e235--e240}, year = {2009},
+  doi     = {10.1161/CIRCULATIONAHA.108.191095}
+}
+@article{rautaharju2009recommendations,
+  author  = {Rautaharju, Pentti M. and Surawicz, Borys and Gettes, Leonard S.},
+  title   = {{AHA/ACCF/HRS} recommendations for the standardization and interpretation of the electrocardiogram: part
+             {IV}: the {ST} segment, {T} and {U} waves, and the {QT} interval},
+  journal = {Circulation}, volume = {119}, number = {10}, pages = {e241--e250}, year = {2009},
+  doi     = {10.1161/CIRCULATIONAHA.108.191096}
+}
+@article{hancock2009recommendations,
+  author  = {Hancock, E. William and Deal, Barbara J. and Mirvis, David M. and Okin, Peter and Kligfield, Paul and
+             Gettes, Leonard S.},
+  title   = {{AHA/ACCF/HRS} recommendations for the standardization and interpretation of the electrocardiogram: part
+             {V}: electrocardiogram changes associated with cardiac chamber hypertrophy},
+  journal = {Circulation}, volume = {119}, number = {10}, pages = {e251--e261}, year = {2009},
+  doi     = {10.1161/CIRCULATIONAHA.108.191097}
+}
+@article{wagner2009recommendations,
+  author  = {Wagner, Galen S. and Macfarlane, Peter and Wellens, Hein and Josephson, Mark and Gorgels, Anton and
+             Mirvis, David M. and Pahlm, Olle and Surawicz, Borys and Kligfield, Paul and Childers, Rory and
+             Gettes, Leonard S.},
+  title   = {{AHA/ACCF/HRS} recommendations for the standardization and interpretation of the electrocardiogram: part
+             {VI}: acute ischemia/infarction},
+  journal = {Circulation}, volume = {119}, number = {10}, pages = {e262--e270}, year = {2009},
+  doi     = {10.1161/CIRCULATIONAHA.108.191098}
+}
+@article{thygesen2018fourth,
+  author  = {Thygesen, Kristian and Alpert, Joseph S. and Jaffe, Allan S. and Chaitman, Bernard R. and Bax, Jeroen J.
+             and Morrow, David A. and White, Harvey D. and {Executive Group on behalf of the Joint European Society of
+             Cardiology (ESC)/American College of Cardiology (ACC)/American Heart Association (AHA)/World Heart
+             Federation (WHF) Task Force for the Universal Definition of Myocardial Infarction}},
+  title   = {Fourth universal definition of myocardial infarction (2018)},
+  journal = {Circulation}, volume = {138}, number = {20}, pages = {e618--e651}, year = {2018},
+  doi     = {10.1161/CIR.0000000000000617}
+}
+@article{kusumoto2019bradycardia,
+  author  = {Kusumoto, Fred M. and Schoenfeld, Mark H. and Barrett, Coletta and Edgerton, James R. and
+             Ellenbogen, Kenneth A. and Gold, Michael R. and Goldschlager, Nora F. and Hamilton, Robert M. and
+             Joglar, Jos{\'e} A. and Kim, Robert J. and Lee, Richard and Marine, Joseph E. and McLeod, Christopher J.
+             and Oken, Keith R. and Patton, Kristen K. and Pellegrini, Cara N. and Selzman, Kimberly A. and
+             Thompson, Annemarie and Varosy, Paul D.},
+  title   = {2018 {ACC/AHA/HRS} guideline on the evaluation and management of patients with bradycardia and cardiac
+             conduction delay},
+  journal = {Circulation}, volume = {140}, number = {8}, pages = {e382--e482}, year = {2019},
+  doi     = {10.1161/CIR.0000000000000628}
+}
+
+
+@article{schlapfer2017computer,
+  author  = {Schl{\"a}pfer, J{\"u}rg and Wellens, Hein J.},
+  title   = {Computer-interpreted electrocardiograms: benefits and limitations},
+  journal = {Journal of the American College of Cardiology}, volume = {70}, number = {9}, pages = {1183--1192},
+  year    = {2017}, doi = {10.1016/j.jacc.2017.07.723}
+}

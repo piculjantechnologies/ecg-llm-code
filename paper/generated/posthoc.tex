@@ -1,0 +1,435 @@
+% python analysis/posthoc.py (POST HOC and exploratory analyses)
+% Generated; do not edit by hand.
+\newcommand{\PHNTrainPatients}{14{,}823}
+\newcommand{\PHTestAgeMedian}{63}
+\newcommand{\PHTestFemalePct}{48.6}
+\newcommand{\PHTestNoisePct}{23.8}
+\newcommand{\PHTestAFPct}{6.8}
+\newcommand{\PHSubWomenN}{1{,}048}
+\newcommand{\PHSubWomen}{0.881}
+\newcommand{\PHSubWomenLow}{0.868}
+\newcommand{\PHSubWomenHigh}{0.894}
+\newcommand{\PHSubMenN}{1{,}110}
+\newcommand{\PHSubMen}{0.892}
+\newcommand{\PHSubMenLow}{0.880}
+\newcommand{\PHSubMenHigh}{0.904}
+\newcommand{\PHSubAFN}{147}
+\newcommand{\PHSubAF}{0.880}
+\newcommand{\PHSubAFLow}{0.855}
+\newcommand{\PHSubAFHigh}{0.905}
+\newcommand{\PHSubNotAFN}{2{,}011}
+\newcommand{\PHSubNotAF}{0.883}
+\newcommand{\PHSubNotAFLow}{0.874}
+\newcommand{\PHSubNotAFHigh}{0.893}
+\newcommand{\PHSubNoiseN}{513}
+\newcommand{\PHSubNoise}{0.866}
+\newcommand{\PHSubNoiseLow}{0.845}
+\newcommand{\PHSubNoiseHigh}{0.885}
+\newcommand{\PHSubNoNoiseN}{1{,}645}
+\newcommand{\PHSubNoNoise}{0.893}
+\newcommand{\PHSubNoNoiseLow}{0.883}
+\newcommand{\PHSubNoNoiseHigh}{0.903}
+\newcommand{\PHSubYoungN}{521}
+\newcommand{\PHSubYoung}{0.868}
+\newcommand{\PHSubYoungLow}{0.840}
+\newcommand{\PHSubYoungHigh}{0.893}
+\newcommand{\PHSubAgeMidN}{875}
+\newcommand{\PHSubAgeMid}{0.871}
+\newcommand{\PHSubAgeMidLow}{0.855}
+\newcommand{\PHSubAgeMidHigh}{0.887}
+\newcommand{\PHSubOldN}{762}
+\newcommand{\PHSubOld}{0.866}
+\newcommand{\PHSubOldLow}{0.850}
+\newcommand{\PHSubOldHigh}{0.879}
+\newcommand{\PHSubAFNoNorm}{0.852}
+\newcommand{\PHSubAFNormPos}{3}
+\newcommand{\PHSubNotAFNoNorm}{0.874}
+\newcommand{\PHSubNotAFNormPos}{960}
+\newcommand{\PHSubNDevices}{5}
+\newcommand{\PHSubDeviceRecordsN}{1{,}912}
+\newcommand{\PHSubDeviceMin}{0.848}
+\newcommand{\PHSubDeviceMax}{0.912}
+\newcommand{\PHMinSubgroup}{100}
+\newcommand{\PHNStatements}{21}
+\newcommand{\PHMinStatement}{20}
+\newcommand{\PHNStmtBoot}{2{,}000}
+\newcommand{\PHStmtNORM}{0.929}
+\newcommand{\PHStmtNORMLow}{0.918}
+\newcommand{\PHStmtNORMHigh}{0.939}
+\newcommand{\PHStmtNORMN}{963}
+\newcommand{\PHStmtIMI}{0.807}
+\newcommand{\PHStmtIMILow}{0.777}
+\newcommand{\PHStmtIMIHigh}{0.834}
+\newcommand{\PHStmtIMIN}{267}
+\newcommand{\PHStmtASMI}{0.955}
+\newcommand{\PHStmtASMILow}{0.941}
+\newcommand{\PHStmtASMIHigh}{0.967}
+\newcommand{\PHStmtASMIN}{234}
+\newcommand{\PHStmtILMI}{0.938}
+\newcommand{\PHStmtILMILow}{0.904}
+\newcommand{\PHStmtILMIHigh}{0.967}
+\newcommand{\PHStmtILMIN}{48}
+\newcommand{\PHStmtAMI}{0.827}
+\newcommand{\PHStmtAMILow}{0.754}
+\newcommand{\PHStmtAMIHigh}{0.895}
+\newcommand{\PHStmtAMIN}{35}
+\newcommand{\PHStmtALMI}{0.896}
+\newcommand{\PHStmtALMILow}{0.840}
+\newcommand{\PHStmtALMIHigh}{0.944}
+\newcommand{\PHStmtALMIN}{27}
+\newcommand{\PHStmtINJAS}{0.917}
+\newcommand{\PHStmtINJASLow}{0.873}
+\newcommand{\PHStmtINJASHigh}{0.954}
+\newcommand{\PHStmtINJASN}{22}
+\newcommand{\PHStmtLMI}{0.816}
+\newcommand{\PHStmtLMILow}{0.725}
+\newcommand{\PHStmtLMIHigh}{0.895}
+\newcommand{\PHStmtLMIN}{20}
+\newcommand{\PHStmtNDT}{0.850}
+\newcommand{\PHStmtNDTLow}{0.827}
+\newcommand{\PHStmtNDTHigh}{0.874}
+\newcommand{\PHStmtNDTN}{182}
+\newcommand{\PHStmtISC}{0.955}
+\newcommand{\PHStmtISCLow}{0.940}
+\newcommand{\PHStmtISCHigh}{0.968}
+\newcommand{\PHStmtISCN}{128}
+\newcommand{\PHStmtNST}{0.867}
+\newcommand{\PHStmtNSTLow}{0.827}
+\newcommand{\PHStmtNSTHigh}{0.901}
+\newcommand{\PHStmtNSTN}{77}
+\newcommand{\PHStmtISCAL}{0.964}
+\newcommand{\PHStmtISCALLow}{0.952}
+\newcommand{\PHStmtISCALHigh}{0.975}
+\newcommand{\PHStmtISCALN}{66}
+\newcommand{\PHStmtISCIN}{0.873}
+\newcommand{\PHStmtISCINLow}{0.819}
+\newcommand{\PHStmtISCINHigh}{0.922}
+\newcommand{\PHStmtISCINN}{22}
+\newcommand{\PHStmtLAFB}{0.976}
+\newcommand{\PHStmtLAFBLow}{0.968}
+\newcommand{\PHStmtLAFBHigh}{0.983}
+\newcommand{\PHStmtLAFBN}{162}
+\newcommand{\PHStmtIRBBB}{0.731}
+\newcommand{\PHStmtIRBBBLow}{0.673}
+\newcommand{\PHStmtIRBBBHigh}{0.788}
+\newcommand{\PHStmtIRBBBN}{112}
+\newcommand{\PHStmtOneAVB}{0.918}
+\newcommand{\PHStmtOneAVBLow}{0.889}
+\newcommand{\PHStmtOneAVBHigh}{0.942}
+\newcommand{\PHStmtOneAVBN}{79}
+\newcommand{\PHStmtIVCD}{0.707}
+\newcommand{\PHStmtIVCDLow}{0.646}
+\newcommand{\PHStmtIVCDHigh}{0.764}
+\newcommand{\PHStmtIVCDN}{79}
+\newcommand{\PHStmtCRBBB}{0.999}
+\newcommand{\PHStmtCRBBBLow}{0.997}
+\newcommand{\PHStmtCRBBBHigh}{1.000}
+\newcommand{\PHStmtCRBBBN}{54}
+\newcommand{\PHStmtCLBBB}{0.982}
+\newcommand{\PHStmtCLBBBLow}{0.967}
+\newcommand{\PHStmtCLBBBHigh}{0.993}
+\newcommand{\PHStmtCLBBBN}{54}
+\newcommand{\PHStmtLVH}{0.919}
+\newcommand{\PHStmtLVHLow}{0.899}
+\newcommand{\PHStmtLVHHigh}{0.936}
+\newcommand{\PHStmtLVHN}{214}
+\newcommand{\PHStmtLAOLAE}{0.769}
+\newcommand{\PHStmtLAOLAELow}{0.701}
+\newcommand{\PHStmtLAOLAEHigh}{0.835}
+\newcommand{\PHStmtLAOLAEN}{42}
+\newcommand{\PHStatedCodeHr}{97.9}
+\newcommand{\PHStatedCodePr}{84.3}
+\newcommand{\PHStatedCodeQrs}{99.5}
+\newcommand{\PHStatedCodeQtc}{67.2}
+\newcommand{\PHStatedCodeAxis}{93.8}
+\newcommand{\PHStatedCodeSokolow}{82.6}
+\newcommand{\PHMeasCLBBBN}{54}
+\newcommand{\PHMeasCLBBBCodeCrit}{81}
+\newcommand{\PHMeasCLBBBCodeStated}{100}
+\newcommand{\PHMeasCLBBBCodeMedian}{131}
+\newcommand{\PHMeasCRBBBN}{54}
+\newcommand{\PHMeasCRBBBCodeCrit}{93}
+\newcommand{\PHMeasCRBBBCodeStated}{100}
+\newcommand{\PHMeasCRBBBCodeMedian}{131}
+\newcommand{\PHMeasIVCDN}{79}
+\newcommand{\PHMeasIVCDCodeCrit}{2.5}
+\newcommand{\PHMeasIVCDCodeStated}{100}
+\newcommand{\PHMeasIVCDCodeMedian}{95}
+\newcommand{\PHMeasIRBBBN}{112}
+\newcommand{\PHMeasIRBBBCodeCrit}{10}
+\newcommand{\PHMeasIRBBBCodeStated}{100}
+\newcommand{\PHMeasIRBBBCodeMedian}{92}
+\newcommand{\PHMeasNormQRSN}{912}
+\newcommand{\PHMeasNormQRSCodeCrit}{100}
+\newcommand{\PHMeasNormQRSCodeStated}{100}
+\newcommand{\PHMeasNormQRSCodeMedian}{85}
+\newcommand{\PHMeasOneAVBN}{79}
+\newcommand{\PHMeasOneAVBCodeCrit}{76}
+\newcommand{\PHMeasOneAVBCodeStated}{85}
+\newcommand{\PHMeasOneAVBCodeMedian}{218}
+\newcommand{\PHMeasSBRADN}{63}
+\newcommand{\PHMeasSBRADCodeCrit}{97}
+\newcommand{\PHMeasSBRADCodeStated}{100}
+\newcommand{\PHMeasSBRADCodeMedian}{49}
+\newcommand{\PHMeasSTACHN}{82}
+\newcommand{\PHMeasSTACHCodeCrit}{94}
+\newcommand{\PHMeasSTACHCodeStated}{100}
+\newcommand{\PHMeasSTACHCodeMedian}{110}
+\newcommand{\PHMeasLNGQTN}{11}
+\newcommand{\PHMeasLNGQTCodeCrit}{--}
+\newcommand{\PHMeasLNGQTCodeStated}{64}
+\newcommand{\PHMeasLNGQTCodeMedian}{--}
+\newcommand{\PHMeasLAFBN}{162}
+\newcommand{\PHMeasLAFBCodeCrit}{95}
+\newcommand{\PHMeasLAFBCodeStated}{91}
+\newcommand{\PHMeasLAFBCodeMedian}{-50}
+\newcommand{\PHMeasLAFBFortyFiveN}{162}
+\newcommand{\PHMeasLAFBFortyFiveCodeCrit}{68}
+\newcommand{\PHMeasLAFBFortyFiveCodeStated}{91}
+\newcommand{\PHMeasLAFBFortyFiveCodeMedian}{-50}
+\newcommand{\PHMeasALADN}{134}
+\newcommand{\PHMeasALADCodeCrit}{97}
+\newcommand{\PHMeasALADCodeStated}{86}
+\newcommand{\PHMeasALADCodeMedian}{-50}
+\newcommand{\PHMeasMIDN}{665}
+\newcommand{\PHMeasMIDCodeCrit}{100}
+\newcommand{\PHMeasMIDCodeStated}{95}
+\newcommand{\PHMeasMIDCodeMedian}{40}
+\newcommand{\PHMeasLVHN}{214}
+\newcommand{\PHMeasLVHCodeCrit}{47}
+\newcommand{\PHMeasLVHCodeStated}{82}
+\newcommand{\PHMeasLVHCodeMedian}{3.4}
+\newcommand{\PHMeasNormSokolowN}{912}
+\newcommand{\PHMeasNormSokolowCodeCrit}{98}
+\newcommand{\PHMeasNormSokolowCodeStated}{95}
+\newcommand{\PHMeasNormSokolowCodeMedian}{2.1}
+\newcommand{\PHMeasAFN}{147}
+\newcommand{\PHMeasAFCodeCrit}{88}
+\newcommand{\PHMeasSRAFN}{1{,}672}
+\newcommand{\PHMeasSRAFCodeCrit}{0.7}
+\newcommand{\PHPrintedHrPct}{79.7}
+\newcommand{\PHPrintedAmongStatedHrPct}{80.2}
+\newcommand{\PHPrintedQrsPct}{43.1}
+\newcommand{\PHPrintedAmongStatedQrsPct}{43.0}
+\newcommand{\PHPrintedPrPct}{2.6}
+\newcommand{\PHPrintedAmongStatedPrPct}{3.1}
+\newcommand{\PHPrintedQtcPct}{7.9}
+\newcommand{\PHPrintedAmongStatedQtcPct}{10.7}
+\newcommand{\PHPrintedAxisPct}{15.0}
+\newcommand{\PHPrintedAmongStatedAxisPct}{15.6}
+\newcommand{\PHPrintedSokolowPct}{0.7}
+\newcommand{\PHPrintedAmongStatedSokolowPct}{0.8}
+\newcommand{\PHDumpUnlabelledPrPct}{80.6}
+\newcommand{\PHDumpUnlabelledQtcPct}{79.8}
+\newcommand{\PHDumpUnlabelledAxisPct}{81.9}
+\newcommand{\PHSandboxRecordsWithErrorN}{70}
+\newcommand{\PHSandboxLastRunErrorN}{6}
+\newcommand{\PHSandboxRecoveredN}{64}
+\newcommand{\PHSandboxCodeRunsTotal}{7{,}483}
+\newcommand{\PHFilterFortyN}{2{,}158}
+\newcommand{\PHFilterFortyPct}{100.0}
+\newcommand{\PHFilterSeparateN}{8}
+\newcommand{\PHDumpPct}{80.5}
+\newcommand{\PHLeadAmplitudePct}{39.8}
+\newcommand{\PHFullTablePct}{0.4}
+\newcommand{\PHMedianN}{2{,}153}
+\newcommand{\PHSandboxErrorsTotal}{79}
+\newcommand{\PHSandboxRecordsWithErrorPct}{3.2}
+\newcommand{\PHSandboxErrorRatePct}{1.1}
+\newcommand{\PHSandboxLinesMedian}{40}
+\newcommand{\PHSandboxLinesQOne}{31}
+\newcommand{\PHSandboxLinesQThree}{48}
+\newcommand{\PHSandboxFilterPct}{100.0}
+\newcommand{\PHSandboxNotchPct}{37}
+\newcommand{\PHSandboxPeaksPct}{100.0}
+\newcommand{\PHSandboxMedianPct}{99.8}
+\newcommand{\PHSandboxPlotPct}{0.05}
+\newcommand{\PHECENORM}{0.060}
+\newcommand{\PHSlopeNORM}{1.47}
+\newcommand{\PHMeanPNORM}{0.44}
+\newcommand{\PHPrevNORM}{0.45}
+\newcommand{\PHECEMI}{0.099}
+\newcommand{\PHSlopeMI}{1.74}
+\newcommand{\PHMeanPMI}{0.16}
+\newcommand{\PHPrevMI}{0.25}
+\newcommand{\PHECESTTC}{0.074}
+\newcommand{\PHSlopeSTTC}{1.49}
+\newcommand{\PHMeanPSTTC}{0.27}
+\newcommand{\PHPrevSTTC}{0.24}
+\newcommand{\PHECECD}{0.018}
+\newcommand{\PHSlopeCD}{1.02}
+\newcommand{\PHMeanPCD}{0.23}
+\newcommand{\PHPrevCD}{0.23}
+\newcommand{\PHECEHYP}{0.054}
+\newcommand{\PHSlopeHYP}{1.27}
+\newcommand{\PHMeanPHYP}{0.17}
+\newcommand{\PHPrevHYP}{0.12}
+\newcommand{\PHECEMean}{0.061}
+\newcommand{\PHBrierMean}{0.108}
+\newcommand{\PHSlopeMin}{1.02}
+\newcommand{\PHSlopeMax}{1.74}
+\newcommand{\PHSlopeMinNoCD}{1.27}
+\newcommand{\PHSlopeMaxNoCD}{1.74}
+\newcommand{\PHMILikMixedN}{47}
+\newcommand{\PHMILikHundredN}{268}
+\newcommand{\PHMILikHundred}{0.936}
+\newcommand{\PHMILikHundredLow}{0.921}
+\newcommand{\PHMILikHundredHigh}{0.950}
+\newcommand{\PHMILikHundredAgeSex}{0.726}
+\newcommand{\PHMILikMidN}{147}
+\newcommand{\PHMILikMid}{0.843}
+\newcommand{\PHMILikMidLow}{0.810}
+\newcommand{\PHMILikMidHigh}{0.875}
+\newcommand{\PHMILikMidAgeSex}{0.674}
+\newcommand{\PHMILikLowN}{135}
+\newcommand{\PHMILikLow}{0.736}
+\newcommand{\PHMILikLowLow}{0.694}
+\newcommand{\PHMILikLowHigh}{0.777}
+\newcommand{\PHMILikLowAgeSex}{0.654}
+\newcommand{\PHNPatientsTest}{1{,}877}
+\newcommand{\PHNPatientsMulti}{218}
+\newcommand{\PHNRecordsMulti}{499}
+\newcommand{\PHClusterLow}{0.877}
+\newcommand{\PHClusterHigh}{0.895}
+\newcommand{\PHSummariesNonEmptyN}{947}
+\newcommand{\PHThinkPTBXLN}{40}
+\newcommand{\PHThinkPTBXLPct}{1.9}
+\newcommand{\PHThinkPTBXLNonEmptyPct}{4.2}
+\newcommand{\CharacteristicsTable}{%
+\begin{table}[!htbp]\centering
+\caption{\textbf{Characteristics of the benchmark splits.} Records with at least one superclass label, in the three sets of the benchmark split. In the ``Age'' row, ages above 89, which PTB-XL codes as 300, are excluded from the median. The ``Signal-quality flag'' row gives the share of records with baseline drift, static noise, burst noise or electrode problems noted in the PTB-XL metadata.}
+\label{tab:characteristics}\small
+\begin{tabular}{lrrr}\toprule
+ & Training (folds 1--8) & Validation (fold 9) & Test (fold 10) \\ \midrule
+Records & 17{,}084 & 2{,}146 & 2{,}158 \\
+Patients & 14{,}823 & 1{,}917 & 1{,}877 \\
+Age, median (IQR), years & 61 (50--71) & 62 (49--72) & 63 (50--74) \\
+Female, \% & 48.0 & 48.1 & 48.6 \\
+NORM, \% & 44.5 & 44.5 & 44.6 \\
+MI, \% & 25.6 & 25.2 & 25.5 \\
+STTC, \% & 24.5 & 24.6 & 24.1 \\
+CD, \% & 22.9 & 23.1 & 23.0 \\
+HYP, \% & 12.4 & 12.5 & 12.1 \\
+Atrial fibrillation or flutter, \% & 6.9 & 6.9 & 6.8 \\
+Signal-quality flag, \% & 22.7 & 24.6 & 23.8 \\
+\bottomrule\end{tabular}\end{table}}
+\newcommand{\SubgroupTable}{%
+\begin{table}[!htbp]\centering
+\caption{\textbf{Macro AUROC by subgroup, and MI discrimination by the annotator's likelihood, on the test fold (post hoc).} 95\% percentile bootstrap CIs (2{,}000 resamples). In the upper part, the ``Records'' column gives the number of test records in the subgroup and the ``Positives'' column the number of them with each superclass label (NORM/MI/STTC/CD/HYP). $^\dagger$Fewer than 10 positives in a class, so the AUROC of that class, which counts one fifth of the macro AUROC, rests on few records. The device rows show the PTB-XL device values with at least 100 test records (1{,}912 of 2{,}158 records), as recorded; values that may denote one device model (for example AT-6~C 5.5, AT-6~C and AT-6~C 5.8; PTB-XL does not document the suffixes) are kept separate, and devices are confounded with recording sites. Signal-quality flag and extra beats as noted in the PTB-XL metadata. In the lower part, MI-positive records are grouped by the highest likelihood (0--100) that the annotator assigned among their MI statements; the ``MI-positive records'' column gives their number, the ``MI AUROC'' column the AUROC of the MI probability for each group against all test records without MI, with 95\% CIs from 2{,}000 stratified bootstrap resamples (positives and negatives resampled separately), and the ``Age-and-sex control'' column the AUROC of the control on the same records.}
+\label{tab:subgroups}\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llrcc}\toprule
+ & Subgroup & Records & Positives & Macro AUROC [95\% CI] \\ \midrule
+Sex & Female & 1{,}048 & 447/253/292/230/127 & 0.881 [0.868, 0.894] \\
+ & Male & 1{,}110 & 516/297/229/266/135 & 0.892 [0.880, 0.904] \\
+Age & Under 50 years & 521 & 399/38/43/70/25 & 0.868 [0.840, 0.893] \\
+ & 50--69 years & 875 & 421/195/198/166/105 & 0.871 [0.855, 0.887] \\
+ & 70 years or older & 762 & 143/317/280/260/132 & 0.866 [0.850, 0.879] \\
+Rhythm & Atrial fibrillation or flutter$^\dagger$ & 147 & 3/82/80/48/25 & 0.880 [0.855, 0.905] \\
+ & Other rhythms & 2{,}011 & 960/468/441/448/237 & 0.883 [0.874, 0.893] \\
+Signal quality & Flag noted & 513 & 225/142/111/121/55 & 0.866 [0.845, 0.885] \\
+ & No flag & 1{,}645 & 738/408/410/375/207 & 0.893 [0.883, 0.903] \\
+Extra beats & Noted & 192 & 45/72/64/69/31 & 0.874 [0.845, 0.902] \\
+ & Not noted & 1{,}966 & 918/478/457/427/231 & 0.886 [0.877, 0.895] \\
+Device & CS-12 & 686 & 241/221/162/200/63 & 0.848 [0.828, 0.867] \\
+ & CS-12 E & 437 & 313/55/37/51/17 & 0.852 [0.823, 0.881] \\
+ & AT-6 C 5.5 & 382 & 182/80/100/75/58 & 0.911 [0.891, 0.928] \\
+ & AT-6 6 & 236 & 107/50/72/52/39 & 0.912 [0.889, 0.932] \\
+ & AT-60 3 & 171 & 55/59/44/49/19 & 0.890 [0.858, 0.919] \\
+\bottomrule\end{tabular}
+
+\medskip
+\begin{tabular}{lrcc}\toprule
+Highest MI likelihood & MI-positive records & MI AUROC [95\% CI] & Age-and-sex control \\ \midrule
+100 & 268 & 0.936 [0.921, 0.950] & 0.726 \\
+50--80 & 147 & 0.843 [0.810, 0.875] & 0.674 \\
+15--35 & 135 & 0.736 [0.694, 0.777] & 0.654 \\
+\bottomrule\end{tabular}\end{table}}
+\newcommand{\StatementTable}{%
+\begin{table}[!htbp]\centering
+\caption{\textbf{Discrimination by diagnostic statement on the test fold (post hoc, exploratory).} Statements with at least 20 test records, with codes and descriptions as in PTB-XL; the ``Class'' column gives the superclass of each statement. The ``Records'' column gives the number of test records with the statement (any likelihood), and the ``AUROC'' column the AUROC of the superclass probability for these records against all test records without that superclass, with 95\% CIs from 2{,}000 stratified bootstrap resamples.}
+\label{tab:statements}\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{ll>{\raggedright\arraybackslash\hyphenpenalty=10000\exhyphenpenalty=10000}p{6.6cm}rc}\toprule
+Class & Code & Statement & Records & AUROC [95\% CI] \\ \midrule
+NORM & NORM & normal ECG & 963 & 0.929 [0.918, 0.939] \\
+\addlinespace
+MI & IMI & inferior myocardial infarction & 267 & 0.807 [0.777, 0.834] \\
+ & ASMI & anteroseptal myocardial infarction & 234 & 0.955 [0.941, 0.967] \\
+ & ILMI & inferolateral myocardial infarction & 48 & 0.938 [0.904, 0.967] \\
+ & AMI & anterior myocardial infarction & 35 & 0.827 [0.754, 0.895] \\
+ & ALMI & anterolateral myocardial infarction & 27 & 0.896 [0.840, 0.944] \\
+ & INJAS & subendocardial injury in anteroseptal leads & 22 & 0.917 [0.873, 0.954] \\
+ & LMI & lateral myocardial infarction & 20 & 0.816 [0.725, 0.895] \\
+\addlinespace
+STTC & NDT & non-diagnostic T abnormalities & 182 & 0.850 [0.827, 0.874] \\
+ & ISC\_ & non-specific ischemic & 128 & 0.955 [0.940, 0.968] \\
+ & NST\_ & non-specific ST changes & 77 & 0.867 [0.827, 0.901] \\
+ & ISCAL & ischemic in anterolateral leads & 66 & 0.964 [0.952, 0.975] \\
+ & ISCIN & ischemic in inferior leads & 22 & 0.873 [0.819, 0.922] \\
+\addlinespace
+CD & LAFB & left anterior fascicular block & 162 & 0.976 [0.968, 0.983] \\
+ & IRBBB & incomplete right bundle branch block & 112 & 0.731 [0.673, 0.788] \\
+ & 1AVB & first degree AV block & 79 & 0.918 [0.889, 0.942] \\
+ & IVCD & non-specific intraventricular conduction disturbance (block) & 79 & 0.707 [0.646, 0.764] \\
+ & CRBBB & complete right bundle branch block & 54 & 0.999 [0.997, 1.000] \\
+ & CLBBB & complete left bundle branch block & 54 & 0.982 [0.967, 0.993] \\
+\addlinespace
+HYP & LVH & left ventricular hypertrophy & 214 & 0.919 [0.899, 0.936] \\
+ & LAO/LAE & left atrial overload/enlargement & 42 & 0.769 [0.701, 0.835] \\
+\bottomrule\end{tabular}\end{table}}
+\newcommand{\MeasurementTable}{%
+\begin{table}[!htbp]\centering
+\caption{\textbf{Measurements stated in the key findings, by PTB-XL statement or metadata field (test fold, post hoc).} The ``$n$'' column gives the number of test records; the ``Stated'' column, the share of them whose key findings state the measurement; the ``Median'' column, the median stated value; and the ``Met'' column, the share whose stated value meets the criterion. Median and Met are among the records that state the measurement (-- when fewer than 10 do). ``NORM only'': records whose only superclass is NORM. The statements are not measurements, so the table checks consistency, not accuracy.}
+\label{tab:measurements}\footnotesize\setlength{\tabcolsep}{4pt}\renewcommand{\arraystretch}{0.95}
+\sbox0{\begin{tabular}{lL{4.2cm}rrrr}\toprule
+Records with & Criterion & $n$ & Stated & Median & Met \\ \midrule
+\multicolumn{6}{l}{\textit{QRS (ms)}} \\
+\quad CLBBB & QRS $\geq$120 ms & 54 & 100\% & $131$ & 81\% \\
+\quad CRBBB & QRS $\geq$120 ms & 54 & 100\% & $131$ & 93\% \\
+\quad IVCD & QRS $\geq$120 ms & 79 & 100\% & $95$ & 2.5\% \\
+\quad IRBBB & QRS 110--119 ms & 112 & 100\% & $92$ & 10\% \\
+\quad NORM only & QRS $<$110 ms & 912 & 100\% & $85$ & 100\% \\
+\addlinespace[3pt]
+\multicolumn{6}{l}{\textit{PR (ms)}} \\
+\quad 1AVB & PR $>$200 ms & 79 & 85\% & $218$ & 76\% \\
+\quad NORM only & PR 120--200 ms & 912 & 95\% & $155$ & 96\% \\
+\addlinespace[3pt]
+\multicolumn{6}{l}{\textit{Heart rate (/min)}} \\
+\quad SBRAD & HR $<$60/min & 63 & 100\% & $49$ & 97\% \\
+\quad STACH & HR $>$100/min & 82 & 100\% & $110$ & 94\% \\
+\quad SR, no SBRAD, STACH or SARRH & HR 60--100/min & 1{,}671 & 99\% & $70$ & 84\% \\
+\addlinespace[3pt]
+\multicolumn{6}{l}{\textit{QTc (ms)}} \\
+\quad LNGQT & QTc $>$450 ms & 11 & 64\% & -- & -- \\
+\quad NORM only & QTc $\leq$450 ms & 912 & 90\% & $395$ & 99\% \\
+\addlinespace[3pt]
+\multicolumn{6}{l}{\textit{Axis ($^\circ$)}} \\
+\quad LAFB & axis $\leq$$-30^\circ$ & 162 & 91\% & $-50$ & 95\% \\
+\quad LAFB & axis $\leq$$-45^\circ$ & 162 & 91\% & $-50$ & 68\% \\
+\quad LPFB & axis $\geq$$+90^\circ$ & 18 & 72\% & $100$ & 100\% \\
+\quad Axis field ALAD & axis $\leq$$-30^\circ$ & 134 & 86\% & $-50$ & 97\% \\
+\quad Axis field LAD & axis $<$$0^\circ$ & 391 & 94\% & $-15$ & 79\% \\
+\quad Axis field MID & axis $-30^\circ$ to $+90^\circ$ & 665 & 95\% & $40$ & 100\% \\
+\quad Axis field RAD or ARAD & axis $>$$+90^\circ$ & 26 & 81\% & $100$ & 81\% \\
+\addlinespace[3pt]
+\multicolumn{6}{l}{\textit{Sokolow--Lyon (mV)}} \\
+\quad LVH & Sokolow--Lyon $\geq$3.5 mV & 214 & 82\% & $3.4$ & 47\% \\
+\quad NORM only & Sokolow--Lyon $<$3.5 mV & 912 & 95\% & $2.1$ & 98\% \\
+\addlinespace[3pt]
+\multicolumn{6}{l}{\textit{Rhythm}} \\
+\quad AFIB or AFLT & AF or flutter named & 147 & -- & -- & 88\% \\
+\quad SR, no AFIB or AFLT & AF or flutter named & 1{,}672 & -- & -- & 0.7\% \\
+\bottomrule\end{tabular}}\usebox0\par\smallskip
+\begin{minipage}{\wd0}\scriptsize The ``Records with'' column gives a PTB-XL statement (any likelihood) or a value of the heart-axis field of the PTB-XL metadata, which is filled for part of the records, and the ``Criterion'' column the threshold that the stated value is checked against: the frozen prompt's where it gives one (QRS, PR, Sokolow--Lyon), otherwise a conventional limit; the prompt gives no angle for fascicular blocks, so LAFB is shown against left axis deviation ($\leq -30^\circ$) and against the AHA/ACCF/HRS criterion ($\leq -45^\circ$)~\citep{surawicz2009recommendations}. Extraction with regular expressions: the first value with its unit after the measurement's label, within the label's clause; otherwise a value written before the label (QRS, axis), for heart rate the first rate in beats per minute anywhere in the text or a rate given without its unit, and for the axis a value given without its unit directly after the label. PR also from a P wave's stated distance before the QRS. A range gives its midpoint. Sokolow--Lyon: the stated sum, not its components, and the value with S in V1 when one with S in V2 is also given. P- and T-wave axes are ignored. QTc as stated by the model (the prompt asked for Bazett's correction). Statements: CLBBB and CRBBB, complete left and right bundle branch block; IVCD, non-specific intraventricular conduction disturbance; IRBBB, incomplete right bundle branch block; 1AVB, first-degree AV block; SR, SBRAD, STACH and SARRH, sinus rhythm, bradycardia, tachycardia and arrhythmia; LNGQT, long QT interval; LAFB and LPFB, left anterior and posterior fascicular block; LVH, left ventricular hypertrophy; AFIB and AFLT, atrial fibrillation and flutter. Heart-axis field: MID, normal; LAD, left axis deviation; ALAD, abnormal left axis deviation; RAD and ARAD, right and abnormal right axis deviation. ``AF or flutter named'': atrial fibrillation or flutter named, and not negated, in the key findings.\end{minipage}\end{table}}
+\newcommand{\ProvenanceTable}{%
+\begin{table}[!htbp]\centering
+\caption{\textbf{Stated measurements and labelled values in the printed code output (test fold, post hoc).} The ``Stated'' column gives the share of the 2{,}158 records whose key findings state the measurement (regular-expression extraction, Supplementary Table~\ref{tab:measurements}). The ``Printed by code'' column gives the share of all records whose printed code output contains the measurement's label (for example \texttt{QRS}, \texttt{PR}, \texttt{QT} or \texttt{QTc}, \texttt{axis}, \texttt{Sokolow} or \texttt{Sok}), and the last column the same share among the records whose key findings state the measurement. A label can be printed without the value being the one stated, and a value can be computed and printed under another label (for example a QRS extent printed as onset and offset times), so the table shows how often a labelled value was printed, not where a stated value came from. Not shown in the table: in 80.5\% of records a code run printed at least one line of 20 or more numbers (typically down-sampled median-beat samples; arrays that numpy wrapped over several shorter lines are not counted, so more records printed samples), in 39.8\% a per-lead table of R and S amplitudes (usually with J-point, J+60~ms and T amplitudes), and in 0.4\% labels for QRS, PR, QT and axis together, as the prompt's measurement table asked. Of the records whose key findings stated a PR interval, a QTc or an axis with no label for it in the printed output, 80.6\%, 79.8\% and 81.9\% printed such lines of 20 or more numbers.}
+\label{tab:provenance}\small
+\begin{tabular}{lccc}\toprule
+Measurement & Stated & Printed by code & Printed, among records stating it \\ \midrule
+Heart rate & 97.9\% & 79.7\% & 80.2\% \\
+QRS duration & 99.5\% & 43.1\% & 43.0\% \\
+PR interval & 84.3\% & 2.6\% & 3.1\% \\
+QTc & 67.2\% & 7.9\% & 10.7\% \\
+Frontal axis & 93.8\% & 15.0\% & 15.6\% \\
+Sokolow--Lyon voltage & 82.6\% & 0.7\% & 0.8\% \\
+\bottomrule\end{tabular}\end{table}}

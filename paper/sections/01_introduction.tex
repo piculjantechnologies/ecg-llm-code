@@ -1,0 +1,82 @@
+\section{Introduction}
+
+Computerized interpretation of the 12-lead electrocardiogram (ECG) has long combined signal processing, which detects
+beats and measures intervals, axis and amplitudes, with diagnostic rules applied to those
+measurements~\citep{schlapfer2017computer,willems1991diagnostic}. A second classical route keeps the preprocessing and
+the measured features but replaces the rules with a statistical or machine-learning classifier trained on labelled
+examples~\citep{dechazal2004heartbeats,lyon2018computational}. On the other hand, deep neural networks trained on large
+labelled datasets learn the whole mapping from signal to diagnosis, from arrhythmia detection in single-lead
+recordings~\citep{hannun2019cardiologist} to multi-label diagnosis of the 12-lead ECG~\citep{ribeiro2020automatic}. PTB-XL, a public collection of \NRecordsTotal{} clinical 10-second recordings
+from \NPatients{} patients~\citep{Wagner2020,Wagner2022physionet}, is a widely used benchmark for such models, with a
+fixed train--test split, label definition and evaluation metric~\citep{Strodthoff2021}. On its diagnostic superclass task, which assigns each
+recording to one or more of five classes (normal ECG -- NORM; myocardial infarction -- MI; ST/T change -- STTC; conduction
+disturbance -- CD; hypertrophy -- HYP), convolutional and recurrent networks trained on the eight training folds by the
+benchmark's authors (the original benchmark models) reached a
+macro-averaged area under the receiver operating characteristic curve (AUROC) of up to \BestSingleBenchmarkAUROC, and
+their ensemble \BestPublishedAUROC~\citep{Strodthoff2021}. Later supervised and pretrained models report
+\MinLaterAUROC--\MaxReportedAUROC~\citep{shi2023multires,zhang2023spacetime,behrouz2024chimera,karami2025msssm,kim2024ecgjepa,lunelli2025benchecg,coppola2024hubertecg,almasud2026benchmarking,almasud2026pretraining,deng2026recursiveecg};
+the highest value is from a supervised classifier whose design an LLM agent revised, evaluated on a different test
+set~\citep{deng2026recursiveecg}. Each of these models needs thousands of labelled recordings and returns class scores
+without clear interpretation.
+
+Large language models (LLMs) can apply medical diagnostic criteria written in plain language and state reasons for their
+output, but reading the ECG signal has been their weak point. Namely, ECG--language models, which pretrain an ECG encoder
+on hundreds of thousands of ECGs with their reports or labels extracted from them, reach a macro AUROC of
+\MinZeroShotAUROC--\BestZeroShotAUROC{} on the PTB-XL superclass test fold without PTB-XL
+labels~\citep{liu2024merl,wang2025melp,pham2025dbeta,cai2025supreme}. Moreover, general-purpose multimodal LLMs that
+were shown ECG images scored close to chance (\MinGeneralLLMAUROC--\BestGeneralLLMAUROC{} on a \NOtherTestSet-record
+PTB-XL hold-out set)~\citep{liu2024teach,lan2025gem}. On the same hold-out set, multimodal LLMs instruction-tuned on ECG
+data, that is, further trained on ECG images paired with instructions and expert answers, reached
+\MinECGLLMAUROC--\BestECGLLMAUROC~\citep{liu2024teach,lan2025gem}. Another study reports that a general-purpose model
+labelled almost all abnormal PTB-XL images as normal~\citep{seki2025assessing}. Newer general-purpose models, when given
+12-lead ECG images, still scored near chance in telling normal from abnormal recordings of the Shandong Provincial
+Hospital database (AUROC 0.51--0.53)~\citep{ahammad2026ecgimage} or reached a balanced accuracy of at most 62\% on
+clinical ECGs~\citep{soubh2026performance}. GPT-5.4, Claude Opus 4.7 and Gemini 3.1 Pro recalled fewer than one in ten
+critical findings on PTB-XL~\citep{gao2026luminaecg}. Given numeric series written as text, general-purpose LLMs scored
+no better than chance, or barely above it, on ECG rhythm and question-answering
+tasks~\citep{liu2025picture,langer2025opentslm}. Better results needed signal processing outside the model, such as
+measurements from ECG software given to the model~\citep{yu2023zeroshot} or a task-specific procedure with a worked
+example~\citep{xu2024penetrative}.
+
+A different route is to let the language model do the signal processing itself. The motivation for this approach stems
+from the fact that LLMs can solve problems by generating executable programs whose execution is delegated to an external
+runtime, such as a Python interpreter~\citep{gao2023pal}. This improves numerical reasoning~\citep{chen2023pot} and the
+behaviour of LLM agents~\citep{wang2024codeact}. Language models can also learn to call external
+tools~\citep{schick2023toolformer}. Commercial LLM interfaces, including the one used
+here~\citep{anthropic2026codeexec}, now offer a sandbox in which the model runs Python on files attached to a request.
+With a sandbox, a general-purpose LLM could do what ECG software does---filter the raw signal, detect beats, form median
+beats and measure them---and then apply written diagnostic criteria to its own measurements, without ECG-specific
+training, and its code and printed measurements would leave a record of how each answer was reached. Code-executing LLM
+agents have analysed tabular clinical data~\citep{tayebiarasteh2024automl} and aggregated wearable
+data~\citep{merrill2026phia,heydari2025pha}. For physiological waveforms, general-purpose LLMs with code access have
+been evaluated on heart-rate estimation from photoplethysmography~\citep{feli2025ppgagent} and, within a broad
+time-series benchmark, on single-lead ECG from sleep studies, where they fell well short of specialist
+models~\citep{li2026hearts}. Code-writing LLMs have also been used to verify other models' reasoning about 12-lead
+ECGs~\citep{xu2026ecgreasoning} and to refine supervised ECG classifiers~\citep{deng2026recursiveecg}, and ECG agents
+have called fixed, pretrained tools~\citep{chung2026ecgagent}. Zero-shot LLM evaluations on PTB-XL have supplied
+precomputed features~\citep{yu2023zeroshot,yu2025alfred} or rendered ECG
+images~\citep{liu2024teach,seki2025assessing,gao2026luminaecg}. To our knowledge, no study has evaluated a
+general-purpose LLM that writes and executes its own signal-processing code on raw 12-lead ECGs as a zero-shot
+diagnostic classifier on the PTB-XL superclass benchmark.
+
+Here, we evaluate this approach. We ask three questions. (i) How well does a general-purpose LLM that writes and runs
+its own signal-processing code classify raw 12-lead ECGs into the PTB-XL superclasses without ECG-specific training,
+compared with published supervised, pretrained and zero-shot models and with a control that uses only age and sex?
+(ii) What does the model do in the sandbox, and how does it arrive at the measurements it states? (iii) How well do its
+superclass probabilities separate records by individual diagnostic statement, and are the measurements it states
+consistent with the dataset's annotations? The first question was pre-specified; the other two were examined post hoc.
+
+A general-purpose LLM received each raw 10-second, 12-lead recording at 500\,Hz as a file, together with age and sex,
+and a prompt that asked it to analyse the ECG in a Python sandbox and then to assign a probability to each PTB-XL
+superclass. The model received no labelled examples, no class prevalences and no other external information, and its
+parameters were not updated at any stage. The configuration was developed on \NDevRecordsUsed{} of the \NValFold{}
+records of the validation fold and fixed in a protocol that was frozen before a single run of this configuration on all
+\NTest{} records of the benchmark test fold.
+
+This work makes three contributions: (1) an evaluation, under a protocol frozen before the test run, of a
+general-purpose LLM that writes and executes its own signal-processing code on raw 12-lead ECGs as a zero-shot
+classifier on the PTB-XL superclass benchmark; (2) a description of what the model did in the sandbox, how it obtained
+the measurements it stated, and how its probabilities and measurements relate to the dataset's diagnostic statements
+and annotations; and (3) the release of every request, sandbox transcript, printed output and answer, so that each
+prediction can be traced to the code and measurements it rests on, together with an offline replay of all of the
+model's code runs, which checks that the printed outputs can be reproduced without the API.
